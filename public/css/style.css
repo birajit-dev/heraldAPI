@@ -347,7 +347,7 @@ NOTE: This is main stylesheet of template, This file contains the styling for th
     Typography
 *****************************/
 body {
-  font-family: "Red Hat Display", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: 16px;
@@ -373,7 +373,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Zilla Slab", serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: normal;
   color: #023a51;
   margin-top: 0px;
@@ -525,13 +525,13 @@ hr {
   padding: 15px;
   border-radius: 6px; }
   .countrys .country-01 h4 {
-    font-family: "Red Hat Display", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     font-size: 16px;
     color: #000000;
     margin-bottom: 10px; }
   .countrys .country-02 h4 {
-    font-family: "Red Hat Display", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     font-size: 16px;
     color: #000000;
@@ -1941,7 +1941,7 @@ ul.current-news li {
     .table.coin-table thead tr th {
       color: #ffffff;
       font-size: 12px;
-      font-family: "Zilla Slab", serif;
+      font-family: "Source Sans Pro", sans-serif;
       font-weight: 600;
       padding: 6px 6px; }
       .table.coin-table thead tr th:first-child {
@@ -1964,19 +1964,19 @@ ul.current-news li {
       margin-right: 8px; }
     .table.coin-table .coin .coin-name {
       font-size: 12px;
-      font-family: "Zilla Slab", serif;
+      font-family: "Source Sans Pro", sans-serif;
       font-weight: 600;
       color: #5c667d; }
       .table.coin-table .coin .coin-name span {
         display: block; }
   .table.coin-table .coin-price {
     font-size: 14px;
-    font-family: "Zilla Slab", serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 600;
     color: #5c667d; }
   .table.coin-table .coin-price-change .coin-change-price {
     font-size: 14px;
-    font-family: "Zilla Slab", serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: normal;
     color: #5c667d;
     display: -webkit-box;
@@ -1990,7 +1990,7 @@ ul.current-news li {
             justify-content: space-between; }
   .table.coin-table .coin-price-change .coin-price-percentage {
     font-size: 14px;
-    font-family: "Zilla Slab", serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: normal;
     color: #ffffff;
     padding: 0px 10px;
@@ -5455,7 +5455,7 @@ input[type="radio"]:radio {
 
 .slider-slick .slider-nav .slick-prev:before {
   content: "\f053" !important;
-  font-family: "Font Awesome 6 Free";
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 900;
   position: absolute;
   left: 50%;
@@ -5601,7 +5601,7 @@ input[type="radio"]:radio {
     left: 25px;
     content: "\f2f6";
     font-size: 60px;
-    font-family: "Font Awesome 5 Free";
+    font-family: "Source Sans Pro", sans-serif;
     z-index: 8;
     color: #023a51;
     font-weight: 600; }
@@ -6283,7 +6283,7 @@ input[type="radio"]:radio {
   .weather .weather-address .place {
     font-size: 16px;
     color: #5c667d;
-    font-family: "Zilla Slab", serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 600; }
   .weather .weather-address .date {
     font-size: 12px;
