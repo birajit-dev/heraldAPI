@@ -4089,7 +4089,7 @@ ul.current-news li {
         visibility: visible;
         margin-bottom: 6px; }
   .blog-post.banner-post-style .blog-title {
-    font-size: 62px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 82px;
     color: #000000;
@@ -4298,7 +4298,7 @@ ul.current-news li {
     .banner-section .banner-content .blog-post.banner-post-style {
       padding: 50px 50px 100px 100px; }
       .banner-section .banner-content .blog-post.banner-post-style .blog-post-details .blog-title {
-        font-size: 52px;
+        font-size: 28px;
         line-height: 62px; } }
 
 @media (max-width: 1199px) {
