@@ -499,9 +499,12 @@ input {
   border-bottom: 1px solid #d1d8e6;
   padding-bottom: 18px;
   margin-bottom: 30px; }
+  
   .section-title h2 {
-    font-size: 28px; }
-    .section-title h2 i {
+    font-size: 24px; 
+  }
+    
+  .section-title h2 i {
       font-size: 24px;
       color: #30c96a;
       margin-right: 15px; }
