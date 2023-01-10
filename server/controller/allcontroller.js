@@ -32,8 +32,6 @@ const { assert } = require('console');
                 const globaltwo = await allNews.find({post_category:'world'}).sort({news_id:-1}).limit('3').lean(); 
 
 
-
-
                 const bnews = await breakingNews.find().sort({brnews_id:-1}).limit('5').lean();
 
                 const entertainment = await allNews.find({post_category:'showbiz'}).sort({news_id:-1}).skip('1').limit('5').lean();
