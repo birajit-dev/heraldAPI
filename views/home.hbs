@@ -99,10 +99,12 @@
           <div class="blog-post post-style-04 mt-4">
             <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt=""> </div>
             <div class="blog-post-details"> 
-              <h6 class="blog-title"><a href="#">{{post_name}}</a></h6>
+              <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+              <p>{{{substr "150" post_content}}}</p>
               <div class="blog-post-meta">
-                <div class="blog-post-time" style="font-size:12px"> <a href="#"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
+                <div class="blog-post-time" style="font-size:12px"> <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
               </div>
+
             </div>
           </div>
           {{/each}}
