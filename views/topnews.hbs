@@ -1,4 +1,4 @@
-{{!-- Tripura News & Article --}}
+  {{!-- Tripura News & Article --}}
   <section class="news-latest-posts" style="margin-top: 30px;">
     <div class="container" style="max-width: 1130px;">
       <div class="row">
@@ -6,11 +6,11 @@
         
         <div class="col-lg-8 col-md-12 order-lg-8">
           <div class="section-title">
-            <h2 class="mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Top News</h2> </div>
+            <h2 class="mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Tripura News</h2> </div>
 
-            {{#if topheadlines}}
-            {{#each topheadlines}} 
-            <div class="blog-post post-style-04 mt-4">
+          {{#if topheadlines}}
+              {{#each topheadlines}} 
+          <div class="blog-post post-style-04 mt-4">
             <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt=""> </div>
             <div class="blog-post-details"> 
               <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
@@ -21,14 +21,14 @@
 
             </div>
           </div>
-          {{/each}}
+           {{/each}}
                     {{else}}
                         <h1>Not Found</h1>
                     {{/if}}
         </div>
 
 
-         <div class="col-lg-4 col-md-12 order-lg-4">
+        <div class="col-lg-4 col-md-12 order-lg-4">
           <div class="section-title">
             <h2 class="mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Article</h2>
           </div>
@@ -54,5 +54,5 @@
 
 
 
-    
-    
+
+
