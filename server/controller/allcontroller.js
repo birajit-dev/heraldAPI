@@ -13,10 +13,19 @@ const { assert } = require('console');
 
         exports.homePage = async(req, res, next) => {
             try{
-                const topnews = await allNews.find({post_topic:'headlines'}).sort({news_id:-1}).limit('1').lean();
+                const topnews = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
                 const latestnews = await allNews.find({post_topic:{$ne:'headlines'},post_category:{$ne:'article'}}).sort({news_id:-1}).limit('3').lean();
 
-                const tripuranews = await allNews.find({post_category:'tripura'}).sort({news_id:-1}).limit('5').lean();
+                let ftopNews = [];
+                for(var i=0 ;i<topnews.length;i++) {
+                      ftopNews.push(topnews[i].post_name);   
+                }
+
+                const skipOneTopNews = ftopNews.toString();
+
+
+                const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('5').lean();
+                //const relatedNews = await allNews.find({post_category:catD,post_url:{$ne:nUrl}}).sort({news_id:-1}).limit('5').lean();
 
                 //Tripura All News
                 // const tripuranews = await allNews.find({post_category:'tripura',ne_insight:{$ne:'yes'}}).sort({news_id:-1}).limit('5').lean();
