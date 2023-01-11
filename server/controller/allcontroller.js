@@ -149,13 +149,14 @@ const { assert } = require('console');
                 //const pk = await allKey.findOne({page_category:catName});
                 res.render('pages',
                 {
-                        pageTitle: pageI.page_title + ' | NE Herald',
+                        pageTitle: pageI.page_title + ' | Northeast Herald',
                         pageKeyword: pageI.page_keyword,
                         pageDescription: pageI.page_description,
                         pageUrl: 'https://www.neherald.com/'+pageI.page_url,
                         imageCard: 'https://www.neherald.com/logo.png',
                         pageI,
-                        bnews
+                        bnews,
+                        heading: pageI.page_title
                 });
             }
                 catch{
