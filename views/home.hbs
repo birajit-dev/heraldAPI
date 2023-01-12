@@ -177,8 +177,52 @@
   </section>
 
 
-
   {{!-- Cricket Score --}}
+  <section class="space-sm-ptb mb-4">
+    <div class="container" style="max-width: 1130px;">
+ 
+           <div class="section-title">
+              <h2 class="title mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;"></i>Daily News Photo Album</h2> </div>
+            <div class="live-score-slider">
+              <div class="row">
+                <div class="col-lg-12" style="padding: 2%;background-color:#032a63">
+                  <div class="owl-carousel owl-loaded owl-drag arrow-styel-04" data-nav-dots="false" data-nav-arrow="true" data-items="1" data-xl-items="1" data-lg-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1" data-autoheight="true" data-autoplay="false">
+                    
+
+                     <!-- item-01 -->
+                    {{#each gallery}}
+                    <div class="item" onclick="window.location.href = '/photo/neh/gallery/{{gallery_url}}'">
+                      <div class="sport-tournament">
+                        <div class="tournament-details">
+                          <div class="">
+                          <img src="https://northeastherald.sfo3.digitaloceanspaces.com/{{this.gallery_path.[0]}}" style="width: 100%;">
+                          </div>
+                          <div class="">
+                            <h4 style="text-align: center;background-color:gray;color:white;font-size:20px;">{{gallery_title}}</h4>
+                          </div>
+                           </div>       
+                      </div>
+                    </div>
+                    {{/each}}
+
+
+                    
+
+
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+  </section>
+  {{!-- End of Cricket Score --}}
+
+
+
+
+{{!-- 
   <section class="space-sm-ptb mb-4">
     <div class="container">
       <div class="row">
@@ -193,6 +237,8 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="owl-carousel owl-loaded owl-drag arrow-styel-04" data-nav-dots="false" data-nav-arrow="true" data-items="1" data-xl-items="1" data-lg-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1" data-autoheight="true" data-autoplay="false">
+                    
+                    
                     <!-- item-01 -->
                     <div class="item">
                       <div class="sport-tournament">
@@ -208,6 +254,8 @@
                       </div>
                     </div>
                     <!-- item-02 -->
+
+
                     <div class="item">
                       <div class="sport-tournament">
                         <div class="tournament-details"> <span class="tournament-name">ICC Women’s Cricket Worls Cup</span> <span class="tournament-match">Match 15</span> <span class="tournament-date">20 April,Fri</span> <span class="tournament-venue">Bay Oval,Mount Maunganui</span> </div>
@@ -257,8 +305,7 @@
         </div>
       </div>
     </div>
-  </section>
-  {{!-- End of Cricket Score --}}
+  </section> --}}
 
 
   {{!-- National News --}}

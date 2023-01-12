@@ -5054,17 +5054,15 @@ ul.current-news li {
     background-color: #00193a !important;
     color: #ffffff; }
   .owl-carousel.arrow-styel-04 .owl-nav button.owl-prev {
-    top: 29px;
-    height: 96px;
-    border-radius: 0; }
+    height: 100px;
+    border-radius: 10; }
     .owl-carousel.arrow-styel-04 .owl-nav button.owl-prev .fa-arrow-left-long:before {
       content: "\f053" !important;
       font-family: "Font Awesome 6 Free";
       font-weight: 900; }
   .owl-carousel.arrow-styel-04 .owl-nav button.owl-next {
-    top: 29px;
-    height: 96px;
-    border-radius: 0 6px 6px 0px; }
+    height: 100px;
+    border-radius: 10 6px 6px 0px; }
     .owl-carousel.arrow-styel-04 .owl-nav button.owl-next .fa-arrow-right-long:before {
       content: "\f054" !important;
       font-family: "Font Awesome 6 Free";
