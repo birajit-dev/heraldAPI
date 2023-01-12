@@ -138,43 +138,7 @@
   {{!-- End of Spot Lights --}}
 
  
-   <section class="space-lg-ptb">
-    <div class="container" style="max-width: 1130px;">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-title">
-            <h2 class="mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;"></i>Photo Gallery</h2> </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="owl-carousel arrow-styel-02" data-nav-dots="false" data-nav-arrow="true" data-items="4" data-xl-items="4" data-lg-items="4" data-md-items="3" data-sm-items="2" data-xs-items="1" data-xx-items="1" data-autoheight="true" data-autoplay="false">
-            
-            {{#each gallery}}
-            <!-- item-01 -->
-            <div class="item">
-              <div class="blog-post post-style-02">
-                <div class="blog-image">
-                  <img class="img-fluid" src="https://northeastherald.sfo3.digitaloceanspaces.com/{{this.gallery_path.[0]}}" alt="">
-                </div>
-                
-                <div class="blog-post-details">
-                  <h6 class="blog-title"><a href="/photo/neh/gallery/{{gallery_url}}">{{gallery_title}}</a></h6>
-                  <div class="blog-post-time" style="font-size: 12px;">
-                    <a href="/photo/neh/gallery/{{gallery_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "25" update_date}}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {{/each}}
-
-            
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+   
 
 
   {{!-- Cricket Score --}}
@@ -204,12 +168,6 @@
                       </div>
                     </div>
                     {{/each}}
-
-
-                    
-
-
-                    
                   </div>
                 </div>
               </div>
