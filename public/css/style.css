@@ -377,7 +377,7 @@ h6 {
   font-weight: normal;
   color: #023a51;
   margin-top: 0px;
-  /*text-transform: capitalize;*/ }
+  }
   h1 a,
   h2 a,
   h3 a,
@@ -1280,7 +1280,7 @@ hr {
   padding-left: 30px;
   padding-right: 30px;
   outline: none;
-  /*text-transform: capitalize;*/ }
+   }
 
 #search .btn {
   border-radius: 0px 6px 6px 0px; }
@@ -5161,7 +5161,7 @@ Select
     color: #e4eaf7;
     /*font-weight: normal;*/
     line-height: inherit;
-    /*text-transform: capitalize;*/ }
+     }
 
 .bigdrop {
   min-width: 196px !important; }
@@ -5231,7 +5231,7 @@ input[type="radio"]:radio {
     right: 20px; }
 
 .select2-results__option[aria-selected] {
-  /*text-transform: capitalize;*/
+  
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   font-size: 14px; }
@@ -5312,7 +5312,7 @@ input[type="radio"]:radio {
         display: inline-block;
         background: #30c96a;
         color: #ffffff;
-        /*text-transform: capitalize;*/
+        
         padding: 10px 20px;
         border-radius: 6px;
         font-weight: bold; }
@@ -5916,7 +5916,7 @@ input[type="radio"]:radio {
       padding-left: 20px;
       padding-right: 60px;
       outline: none;
-      /*text-transform: capitalize;*/ }
+       }
     .sidebar .search-widget .btn {
       position: absolute;
       top: 0;
