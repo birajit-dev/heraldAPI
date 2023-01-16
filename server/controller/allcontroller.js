@@ -59,7 +59,7 @@ const { assert } = require('console');
 
                 res.render('home',
                 {
-                    pageTitle: 'Northeast Herald: Agartala News, Tripura News, Kokborok News, Northeast News',
+                    pageTitle: 'Northeast Herald | Ne Herald | Agartala News, Tripura News, Kokborok News, Northeast News',
                     pageKeyword: 'neherald, tripura university,northeast herald, tripura news, kokborok news, tripura info',
                     pageDescription: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
                     pageUrl: 'https://www.neherald.com/',
