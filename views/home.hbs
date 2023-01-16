@@ -65,23 +65,29 @@
         
         
         <div class="col-lg-8 col-md-12 order-lg-8">
-          <div class="section-title">
-            <h2 class="mb-0" onclick="window.location.href = '/tripura'"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Tripura News</h2> </div>
-
-          {{#each tripuranews}}
-          <div class="blog-post post-style-04 mt-4">
-            <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt=""> </div>
-            <div class="blog-post-details"> 
-              <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
-              <p>{{{substr "150" post_content}}}</p>
-              <div class="blog-post-meta">
-                <div class="blog-post-time" style="font-size:12px"> <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
-              </div>
-
+            <div class="section-title">
+              <h2 class="mb-0" onclick="window.location.href = '/tripura'">
+                <i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Tripura News
+              </h2> 
             </div>
-          </div>
-          {{/each}}
-        </div>
+          {{#each tripuranews}}
+                <div class="blog-post post-style-04 mt-4">
+                  <div class="blog-image"> 
+                    <img class="img-fluid" src="{{post_image}}" alt="">
+                  </div>
+                  <div class="blog-post-details"> 
+                    <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+                      <p>{{{substr "150" post_content}}}</p>
+                        <div class="blog-post-meta">
+                          <div class="blog-post-time" style="font-size:12px"> 
+                            <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+       
+        {{/each}}
+         </div>
 
 
         <div class="col-lg-4 col-md-12 order-lg-4">

@@ -24,7 +24,7 @@ const { assert } = require('console');
                 const skipOneTopNews = ftopNews.toString();
 
 
-                const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('5').lean();
+                const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('4').lean();
                 //const relatedNews = await allNews.find({post_category:catD,post_url:{$ne:nUrl}}).sort({news_id:-1}).limit('5').lean();
 
                 //Tripura All News
@@ -39,7 +39,6 @@ const { assert } = require('console');
                 const globalnews = await allNews.find({post_category:'world'}).sort({news_id:-1}).skip('1').limit('6').lean();
                 const globalone = await allNews.find({post_category:'world'}).sort({news_id:-1}).limit('1').lean();
                 const globaltwo = await allNews.find({post_category:'world'}).sort({news_id:-1}).limit('3').lean(); 
-
 
                 const bnews = await breakingNews.find().sort({brnews_id:-1}).limit('5').lean();
 
