@@ -24,7 +24,7 @@ const { assert } = require('console');
                 const skipOneTopNews = ftopNews.toString();
 
 
-                const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('4').lean();
+                const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('7').lean();
                 //const relatedNews = await allNews.find({post_category:catD,post_url:{$ne:nUrl}}).sort({news_id:-1}).limit('5').lean();
 
                 //Tripura All News

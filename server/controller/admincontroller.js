@@ -178,7 +178,6 @@ const newDate = moment().format('lll');
                     author:author,
                     update_date:nDate
                 });
-                
                 upallNews.save();
                 res.redirect('/admin/user/dashboard');
             }
@@ -407,6 +406,14 @@ const newDate = moment().format('lll');
                     res.redirect('/admin/user/dashboard');
                 }
             });  
+    }
+
+    exports.addVideos = async(req, res, next) =>{
+        try{
+
+        }catch{
+
+        }
     }
 
 
