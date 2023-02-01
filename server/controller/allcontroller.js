@@ -13,7 +13,7 @@ const { assert } = require('console');
 
         exports.homePage = async(req, res, next) => {
             try{
-                const topnews = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
+                const topnews = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
                 const latestnews = await allNews.find({post_topic:{$ne:'headlines'},post_category:{$ne:'article'}}).sort({news_id:-1}).limit('3').lean();
 
                 let ftopNews = [];
@@ -51,7 +51,8 @@ const { assert } = require('console');
                 const article = await allNews.find({post_category:'article'}).sort({news_id:-1}).limit('2').lean();
                 const spotlight = await allNews.find({post_category:'health'}).sort({news_id:-1}).limit('3').lean();
 
-                const topheadlines = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
+                //const topheadlines = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
+                const topheadlines = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
                 
                 const gallery = await allGallery.find().sort({gallery_id:-1}).limit('5').lean();
                 const skipGallery = await allGallery.find().sort({gallery_id:-1}).skip(1).limit('10').lean();
