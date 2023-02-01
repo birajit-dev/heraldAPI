@@ -8,6 +8,20 @@
           <div class="section-title">
             <h2 class="mb-0"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;font-size:20px"></i>Tripura News</h2> </div>
 
+          {{#each oneDay}}
+          <div class="blog-post post-style-04 mt-4">
+            <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt=""> </div>
+            <div class="blog-post-details"> 
+              <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+              
+              <div class="blog-post-meta">
+                <div class="blog-post-time" style="font-size:12px"> <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
+              </div>
+
+            </div>
+          </div>
+           {{/each}}
+
           {{#if topheadlines}}
               {{#each topheadlines}} 
           <div class="blog-post post-style-04 mt-4">
