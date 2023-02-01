@@ -13,7 +13,7 @@ const { assert } = require('console');
 
         exports.homePage = async(req, res, next) => {
             try{
-                const topnews = await allNews.find({post_url:'nirmala-sitharaman-to-present-union-budget-today'}).sort({news_id:-1}).limit('1').lean();
+                const topnews = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
                 const latestnews = await allNews.find({post_topic:{$ne:'headlines'},post_category:{$ne:'article'}}).sort({news_id:-1}).limit('3').lean();
 
                 let ftopNews = [];
