@@ -168,7 +168,7 @@ const { assert } = require('console');
         exports.topNewsPage = async(req, res) =>{
             const topheadlines = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).lean();
             const recentNewscat = await allNews.find().sort({news_id:-1}).limit('10').lean();
-            const oneDay = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
+            //const oneDay = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
             const bnews = await breakingNews.find().sort({brnews_id:-1}).limit('5').lean();
             res.render('topnews',{
                     pageTitle: 'Tripura Top News : NE Herald',
@@ -180,7 +180,7 @@ const { assert } = require('console');
                     recentNewscat,
                     topheadlines,
                     bnews,
-                    oneDay
+                    //oneDay
 
             })
         }
