@@ -189,5 +189,54 @@ const { assert } = require('console');
             res.render('404');
         }
 
+        exports.searchNews = async(req, res, next) =>{
+            try {
+                const squery = req.query.q;    
+                const searchQuery = await allNews.find({$text: {$search:squery}}).sort({news_id:-1}).lean();
+                const recentNewscat = await allNews.find().sort({news_id:-1}).limit('8').lean();
+
+                console.log(searchQuery)
+                //res.json(topnews);
+                res.render('search',
+                {
+                    pageTitle: squery.charAt(0).toUpperCase() + squery.slice(1) + ' | Northeast Herald',
+                    pageKeyword: 'neherald, tripura university,northeast herald, tripura news, kokborok news, tripura info',
+                    pageDescription: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
+                    pageUrl: 'https://www.neherald.com/',
+                    imageCard: 'https://www.neherald.com/logo.png',
+                    pageCategory: squery,
+                    searchQuery, recentNewscat
+                });
+            } catch(error) {
+                next(error);
+            }
+
+        }
+
+        exports.photoAlbum = async(req, res, next) =>{
+            try{
+                const allgallery = await allGallery.find().sort({gallery_id:-1}).lean();
+                res.render('album',
+                {
+                    pageTitle: 'Photo Album| Northeast Herald',
+                    pageKeyword: 'neherald, tripura university,northeast herald, tripura news, kokborok news, tripura info',
+                    pageDescription: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
+                    pageUrl: 'https://www.neherald.com/',
+                    imageCard: 'https://www.neherald.com/logo.png',
+                    allgallery
+                    
+                });
+            }
+            catch{
+                res.redirect('/error/404')
+            }   
+        }
+
+        exports.testAPI = async(req, res, next) =>{
+            console.log("Name: ", req.query.name);
+            console.log("Age:", req.query.age);
+            res.send();
+        }
+
 
 
