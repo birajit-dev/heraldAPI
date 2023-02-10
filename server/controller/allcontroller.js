@@ -6,9 +6,11 @@ const pagekeyword = require('../model/pagekeyword');
 const allPag = require('../model/allpage');
 const breakingNews = require('../model/breakingnews');
 const allGallery = require('../model/gallery');
+const YouTube = require('../model/youtube');
 const { resolve } = require('path');
 const { all } = require('express/lib/application');
 const { assert } = require('console');
+const youtube = require('../model/youtube');
 
 
         exports.homePage = async(req, res, next) => {
@@ -57,6 +59,10 @@ const { assert } = require('console');
                 const gallery = await allGallery.find().sort({gallery_id:-1}).limit('5').lean();
                 const skipGallery = await allGallery.find().sort({gallery_id:-1}).skip(1).limit('10').lean();
 
+                //YouTube Fetch
+                const fYt = await youtube.find().sort({video_id:-1}).limit('1').lean();
+                const fYotube = await youtube.find().sort({video_id:-1}).skip(1).limit('4').lean();
+
                 res.render('home',
                 {
                     pageTitle: 'Northeast Herald | Ne Herald | Agartala News, Tripura News, Kokborok News, Northeast News',
@@ -77,7 +83,7 @@ const { assert } = require('console');
                     spotlight, 
                     entertainment, 
                     finance,
-                    article, nationalone, sportone, globalone, globaltwo, entertainmentone, financeone
+                    article, nationalone, sportone, globalone, globaltwo, entertainmentone, financeone, fYotube,fYt
                 });
             }
             catch{
@@ -230,12 +236,6 @@ const { assert } = require('console');
             catch{
                 res.redirect('/error/404')
             }   
-        }
-
-        exports.testAPI = async(req, res, next) =>{
-            console.log("Name: ", req.query.name);
-            console.log("Age:", req.query.age);
-            res.send();
         }
 
 

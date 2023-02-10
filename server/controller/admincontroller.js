@@ -7,6 +7,7 @@ const adminData =  require('../model/login');
 const breakingNews = require('../model/breakingnews');
 const galleryDb = require('../model/gallery');
 const Ibns = require('../model/ibns');
+const YouTube = require('../model/youtube');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
@@ -409,11 +410,18 @@ const newDate = moment().format('lll');
     }
 
     exports.addVideos = async(req, res, next) =>{
-        try{
-
-        }catch{
-
-        }
+            try{
+                const nDate = moment().format('lll');
+                const vKey = req.query.key;
+                let upYouTube = new YouTube({
+                    video_key:vKey,
+                    update_date:nDate,
+                });
+                const sVideo = upYouTube.save();
+                res.status(200).json("Success");
+            }catch(error) {
+                res.status(400).json({message: error.message})
+            }
     }
 
 

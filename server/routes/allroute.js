@@ -63,10 +63,9 @@ router.get('/ibns/automation/category/world/do', ibnsAutomation.world);
 //SEO 
 
 //API
-
 router.get('/api/v1/search', allController.searchNews);
-router.get('/api/v1/testapi', allController.testAPI);
 router.get('/api/v1/album', allController.photoAlbum);
+router.get('/api/v1/video', adminController.addVideos);
 
 
 
