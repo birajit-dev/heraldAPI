@@ -31,7 +31,15 @@
                   <div class="blog-post-details">
                     <div class="blog-post-meta p-0">
                       <div class="blog-post-user">
-                        <a href="#">By {{singlenews.author}}</a>
+                        <a href="#">By 
+                          
+                          {{#ifEquals singlenews.post_category "article"}}
+                              {{else}}
+                              {{singlenews.author}}
+
+                          {{/ifEquals}}
+
+                          </a>
                       </div>
                       <div class="blog-post-time">
                         <a href="#"><i class="fa-solid fa-calendar-days"></i>{{substr "16" singlenews.update_date}}</a>
