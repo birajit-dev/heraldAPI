@@ -67,6 +67,8 @@ router.get('/api/v1/search', allController.searchNews);
 router.get('/api/v1/album', allController.photoAlbum);
 router.get('/api/v1/video', adminController.addVideos);
 
+router.get('/api/v1/allnews', allController.homeAPI);
+
 
 
 
