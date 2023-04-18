@@ -8,9 +8,10 @@
                 <h2 class="mb-0" onclick="window.location.href = '/health'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Spot Lights</h2> 
                 <a href="/recommended-for-you" class="rightLink" style="float: right;width: 9px;height: 14px;background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
             </div>  
-            <div class="row">
+            <div class="row" style="margin-top: 10px;">
             {{#each spotlight}}
-        <div class="col-lg-4 col-md-4 order-lg-4">
+
+        <div class="col-lg-4 col-md-4 order-lg-4" style="margin-bottom: 8px;">
           <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
             <div class="card shadow-sm">
               <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
