@@ -208,9 +208,10 @@
         background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
               </div>
         </div>
+      </div>
       <div class="row">
         {{#each article}}
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin-bottom: 8px;">
           <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
             <div class="card shadow-sm">
               <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
@@ -224,7 +225,6 @@
           </div>
         </div>
         {{/each}}
-      </div>
       </div>
     </div>
   </section>
