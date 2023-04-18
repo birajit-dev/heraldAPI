@@ -51,7 +51,7 @@ const youtube = require('../model/youtube');
                 const financeone = await allNews.find({post_category:'finance'}).sort({news_id:-1}).limit('1').lean();
 
                 const article = await allNews.find({post_category:'article'}).sort({news_id:-1}).limit('3').lean();
-                const spotlight = await allNews.find({post_category:'health'}).sort({news_id:-1}).limit('3').lean();
+                const spotlight = await allNews.find({post_category:'health'}).sort({news_id:-1}).limit('6').lean();
 
                 const topheadlines = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
                 //const topheadlines = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
