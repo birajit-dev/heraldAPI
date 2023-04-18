@@ -197,19 +197,16 @@
   <section class="space-sm-ptb" >
     <div class="container" style="max-width: 1130px;">
       <div class="row">
-        <div class="col-lg-12" style="background-color:white;border-radius:10px;">
-          <div class="section-title" style="padding:8px;margin-bottom: -2px;">
-              <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Article</h6> 
-              
-              
-              <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
-        width: 9px;
-        height: 14px;
-        background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
+        
+            <div class="col-lg-12" style="background-color:white;border-radius:10px;">
+              <div class="section-title" style="padding:8px;margin-bottom: -2px;">
+                <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Article</h6> 
+                <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
+                width: 9px;
+                height: 14px;
+                background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
               </div>
-        </div>
-      </div>
-      <div class="row">
+
         {{#each article}}
         <div class="col-md-4" style="margin-bottom: 8px;">
           <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
