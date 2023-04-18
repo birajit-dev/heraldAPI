@@ -16,6 +16,9 @@
     </div>
   </section>
 
+
+
+
   {{!-- Top News & Latest News --}}
   <section class="news-latest-posts">
     <div class="container" style="max-width: 1130px;">
@@ -208,35 +211,7 @@
   </section>
   {{!-- End of Spot Lights --}}
   
-  {{!-- Spot Lights --}}
-  <section class="space-sm-ptb">
-    <div class="container" style="max-width: 1130px;">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-title">
-            <h2 class="mb-0" onclick="window.location.href = '/health'"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;"></i>Spot Lights</h2> </div>
-        </div>
-      </div>
-      <div class="row">
-        {{#each spotlight}}
-        <div class="col-md-4">
-          <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
-              <div class="card-body" style="padding:10px;">
-                <h3 class="card-text" style="font-size: 15px;">{{post_name}}</h3>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-muted"></small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </section>
-  {{!-- End of Spot Lights --}}
+  {{>check}}
 
 
   {{!-- Cricket Score --}}

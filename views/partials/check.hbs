@@ -2,22 +2,15 @@
   <section class="news-latest-posts" style="margin-top: 30px;">
     <div class="container" style="max-width: 1130px;">
       <div class="row">
-        
-          <div class="col-lg-8 col-md-12 order-lg-8" style="background-color:white;border-radius:5px;">
+
+        <div class="col-lg-8 col-md-12 order-lg-8" style="background-color:white;border-radius:5px;">
             <div class="section-title" style="padding:8px;margin-bottom: -2px;">
-              <h2 class="mb-0" onclick="window.location.href = '/tripura'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">
-                Tripura News
-              </h2> 
-              <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
-        width: 9px;
-        height: 14px;
-        background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
-            </div>
-              
-          </div>
-                <div class="row">
-        {{#each article}}
-        <div class="col-md-4">
+                <h2 class="mb-0" onclick="window.location.href = '/health'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Spot Lights</h2> 
+                <a href="/recommended-for-you" class="rightLink" style="float: right;width: 9px;height: 14px;background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
+            </div>  
+            <div class="row">
+            {{#each spotlight}}
+        <div class="col-lg-4 col-md-4 order-lg-4">
           <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
             <div class="card shadow-sm">
               <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
@@ -31,8 +24,21 @@
           </div>
         </div>
         {{/each}}
-      </div>
+        </div>
+        </div>
 
+        
+
+
+      
+  {{!-- End of Spot Lights --}}
+
+
+
+
+
+
+        
 
 
 
@@ -45,7 +51,7 @@
           <div class="col mb-2" style="background-color:white;border-radius:10px;">
           <div class="col-lg-12">
             <div class="section-title" style="padding:8px;margin-bottom: -2px;">
-              <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Recommended For You</h6> 
+              <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Trending</h6> 
               
               
               <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
@@ -69,44 +75,12 @@
       </div>
 
 
-          <div class="col mb-2">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-ing card-img-top" src="/images/ongc_ads.jpg" style="">
-              <div class="card-body" style="padding:10px;">
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-muted"></small>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
 
          
 
-            <div class="widget">
-              <h6 class="widget-title" style="font-family: 'Times New Roman', Times, serif;">Follow Us On Social</h6>
-              <div class="follow-style-04">
-                <div class="social">
-                  <ul class="mb-0">
-                    <li class="facebook">
-                      <div class="social-icon">
-                        <a href="https://www.facebook.com/profile.php?id=100086101862124"> <i class="fab fa-facebook-f"></i>Facebook</a>
-                      </div>
-                    </li>
-                    <li class="twitter">
-                      <div class="social-icon">
-                        <a href="https://twitter.com/HeraldNortheast"><i class="fa-brands fa-twitter"></i>Twitter</a>
-                      </div>   
-                    </li>
-                    <li class="youtube">
-                      <div class="social-icon">
-                        <a href="https://www.youtube.com/@northeastherald5966"><i class="fa-brands fa-youtube"></i>Youtube</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            
             <br>
 
           
