@@ -198,6 +198,7 @@
     <div class="container" style="max-width: 1130px;">
       <div class="row">
         
+        
             <div class="col-lg-12" style="background-color:white;border-radius:10px;">
               <div class="section-title" style="padding:8px;margin-bottom: -2px;">
                 <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Article</h6> 
@@ -207,8 +208,11 @@
                 background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
               </div>
 
+
+          <div class="row" style="margin-top:10px;">
         {{#each article}}
-        <div class="col-lg-4 col-md-4 order-lg-4" style="margin-bottom: 8px;">
+
+        <div class="col-md-4" style="margin-bottom: 8px;">
           <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
             <div class="card shadow-sm">
               <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
@@ -222,7 +226,11 @@
           </div>
         </div>
         {{/each}}
+        </div>
+
+
       </div>
+    </div>
     </div>
   </section>
   {{!-- End of Spot Lights --}}
