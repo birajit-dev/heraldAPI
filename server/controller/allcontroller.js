@@ -60,8 +60,8 @@ const youtube = require('../model/youtube');
                 const skipGallery = await allGallery.find().sort({gallery_id:-1}).skip(1).limit('10').lean();
 
                 //YouTube Fetch
-                const fYt = await youtube.find().sort({video_id:-1}).limit('1').lean();
-                const fYotube = await youtube.find().sort({video_id:-1}).skip(1).limit('4').lean();
+                //const fYt = await youtube.find().sort({video_id:-1}).limit('1').lean();
+                const fYotube = await youtube.find().sort({video_id:-1}).limit('6').lean();
 
                 res.render('home',
                 {
@@ -83,7 +83,7 @@ const youtube = require('../model/youtube');
                     spotlight, 
                     entertainment, 
                     finance,
-                    article, nationalone, sportone, globalone, globaltwo, entertainmentone, financeone, fYotube,fYt
+                    article, nationalone, sportone, globalone, globaltwo, entertainmentone, financeone, fYotube
                 });
             }
             catch{
