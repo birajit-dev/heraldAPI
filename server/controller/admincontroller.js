@@ -14,7 +14,7 @@ const multer = require('multer');
 const { resolve } = require('path');
 //const { rejects } = require('assert');
 const { all } = require('express/lib/application');
-const { assert } = require('console');
+const { assert, error } = require('console');
 const fetch = require('node-fetch');
 const _ = require('lodash');
 const allnews = require('../model/allnews');
@@ -424,6 +424,20 @@ const newDate = moment().format('lll');
                 res.status(400).json({message: error.message})
             }
     }
+
+    exports.addAuthorPage = async(req, res, next) =>{
+        adminSession=req.session;
+        if(!adminSession.userid){
+            res.redirect('/admin/user/login');
+        }
+        else{
+        res.render('admin/addauthor',{
+            layout:'',
+        });
+        }
+    }
+
+
 
 
 

@@ -31,6 +31,7 @@ router.get('/admin/user/listbreaking', adminController.listBreaking);
 router.get('/admin/user/editbreaking/:id', adminController.editBreaking)
 router.get('/admin/user/addgallery', galleryController.addGallery);
 router.get('/admin/user/gallery', galleryController.listGallery);
+router.get('/admin/user/addauthor', adminController.addAuthorPage);
 
 //API//
 router.post('/admin/user/authcheck', adminController.authAdmin); //AUTHENTICATION OF ADMIN PANEL LOGIN
@@ -57,7 +58,6 @@ router.get('/ibns/automation/category/finance/do', ibnsAutomation.finance);
 router.get('/ibns/automation/category/health/do', ibnsAutomation.health);
 router.get('/ibns/automation/category/life/do', ibnsAutomation.life);
 router.get('/ibns/automation/category/world/do', ibnsAutomation.world);
-
 
 
 

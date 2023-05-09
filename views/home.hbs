@@ -49,7 +49,7 @@
                 background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
               </div>
             <div class="row" style="margin-top:10px;display:block">
-              {{#each latestnews}}
+              {{#each article}}
                 <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'" style="padding-bottom:10px;">
                   <div class="card shadow-sm">
                     <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
@@ -62,8 +62,13 @@
                   </div>
                 </div>
               {{/each}}
+              <br>
+              <img src="https://northeastherald.sfo3.digitaloceanspaces.com/news/Creative_ADV_%20Bengali.jpg">
+              <br>
             </div>
             {{!-- End of Article --}}
+
+            
 
 
             {{!-- Start of Recomendention --}}
