@@ -1,0 +1,47 @@
+
+  {{!-- Top News & Latest News --}}
+  <section class="news-latest-posts">
+    <div class="container" style="max-width: 1130px;">
+      <div class="row">    
+        <div class="col-lg-7">
+          {{#each topheadlines}}
+          <div class="blog-post post-style-01" onclick="window.location.href = '/topnews/headlines/tripura'">
+            <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt="" style="height: 420px;"> </div>
+            <div class="blog-post-details"> <span class="badge badge-large bg-primary">Top News</span>
+              <h3 class="blog-title"><a href="/topnews/headlines/tripura">{{post_name}}</a></h3>
+              <div class="blog-post-meta">
+                <div class="blog-post-time"> <a href="/topnews/headlines/tripura"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+
+        <div class="col-md-5 col-lg-12 col-xl-5" style="background-color: black;border-radius:10px;">
+          <div class="col-lg-12">
+            <div class="section-title" style="padding:8px;">
+              <h6 class="mb-0" style="color:white;font-weight:800;font-size:20px;font-family:'Lato Black',sans-serif">Latest News</h6> 
+              
+              
+              <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
+        width: 9px;
+        height: 14px;
+        background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
+              </div>
+          </div>
+          {{#each latestnews}}
+          <div class="blog-post post-style-04" style="display:flex">
+            <div class="blog-image" style="margin-right:10px;width:1%;"> <img class="img-fluid bg-overlay-black-93" src="{{post_image}}" alt="" style="width:120px"> </div>
+            <div class="blog-post-details"> 
+              <h6 class="blog-title" style="color: white;"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+              <div class="blog-post-meta">
+                <div class="blog-post-time" style="font-size: 12px;"> <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a> </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}        
+
+      </div>
+    </div>
+  </section>
+  {{!-- End of Top News & Latest News --}}
