@@ -40,6 +40,12 @@
         <div class="col-lg-4 col-md-12 order-lg-4">
 
 
+              <div class="row">
+                <img src="https://northeastherald.sfo3.digitaloceanspaces.com/news/Creative_ADV_%20Bengali.jpg">
+              </div>
+              <br>
+              
+
             {{!-- Start of Article --}}
               <div class="section-title" style="padding:8px;margin-bottom: -2px;">
                 <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Article</h6> 
@@ -48,6 +54,8 @@
                 height: 14px;
                 background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
               </div>
+
+
             <div class="row" style="margin-top:10px;display:block">
               {{#each article}}
                 <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'" style="padding-bottom:10px;">
@@ -62,9 +70,7 @@
                   </div>
                 </div>
               {{/each}}
-              <br>
-              <img src="https://northeastherald.sfo3.digitaloceanspaces.com/news/Creative_ADV_%20Bengali.jpg">
-              <br>
+              
             </div>
             {{!-- End of Article --}}
 
