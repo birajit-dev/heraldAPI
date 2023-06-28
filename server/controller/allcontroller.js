@@ -65,7 +65,7 @@ const youtube = require('../model/youtube');
 
                 res.render('home',
                 {
-                    pageTitle: 'Northeast Herald | Ne Herald | Agartala News, Tripura News, Kokborok News, Northeast News',
+                    pageTitle: 'Northeast Herald | Agartala News, Tripura News, Kokborok News, Northeast News',
                     pageKeyword: 'neherald, tripura university,northeast herald, tripura news, kokborok news, tripura info',
                     pageDescription: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
                     pageUrl: 'https://www.neherald.com/',
@@ -177,7 +177,7 @@ const youtube = require('../model/youtube');
             //const oneDay = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
             const bnews = await breakingNews.find().sort({brnews_id:-1}).limit('5').lean();
             res.render('topnews',{
-                    pageTitle: 'Tripura Top News : NE Herald',
+                    pageTitle: 'Tripura Top News : Northeast Herald',
                     pageKeyword: 'neherald, tripura university,northeast herald, tripura news, kokborok news, tripura info',
                     pageDescription: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
                     pageUrl: 'https://www.neherald.com/',
@@ -312,3 +312,7 @@ const youtube = require('../model/youtube');
                 res.status(500).send({message: error.message || "Error in Homepage"});
             }
         }
+
+
+
+
