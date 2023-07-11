@@ -15,6 +15,7 @@ router.get('/:cat', allController.categoryPage); // CATEGORY PAGE
 router.get('/en/pages/:pageurl', allController.pagesection);
 router.get('/photo/neh/gallery/:gurl', galleryController.pageGallery);
 router.get('/topnews/headlines/tripura', allController.topNewsPage);
+router.get('/site/map/sitemap.xml', allController.SiteMap);
 //router.get('/automation/ibns/all', adminController.ibns);
 //router.get('/a/a/a/test', adminController.testi);
 

@@ -11,6 +11,13 @@ const { resolve } = require('path');
 const { all } = require('express/lib/application');
 const { assert } = require('console');
 const youtube = require('../model/youtube');
+const { create, xmlEscape } = require('xmlbuilder2');
+const allnews = require('../model/allnews');
+
+
+const fs = require('fs');
+const path = require('path');
+
 
 
         exports.homePage = async(req, res, next) => {
@@ -22,16 +29,11 @@ const youtube = require('../model/youtube');
                 for(var i=0 ;i<topnews.length;i++) {
                       ftopNews.push(topnews[i].post_name);   
                 }
-
                 const skipOneTopNews = ftopNews.toString();
-
-
                 const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('10').lean();
                 //const relatedNews = await allNews.find({post_category:catD,post_url:{$ne:nUrl}}).sort({news_id:-1}).limit('5').lean();
-
                 //Tripura All News
                 // const tripuranews = await allNews.find({post_category:'tripura',ne_insight:{$ne:'yes'}}).sort({news_id:-1}).limit('5').lean();
-
                 const nationalnews = await allNews.find({post_category:'national'}).sort({news_id:-1}).skip('1').limit('5').lean();
                 const nationalone = await allNews.find({post_category:'national'}).sort({news_id:-1}).limit('1').lean();
 
@@ -315,4 +317,86 @@ const youtube = require('../model/youtube');
 
 
 
+        async function generateNewsSitemap() {
+            try {
+            const articles = await allNews.find()
+                .sort({ publishedAt: -1 })
+                .limit(100)
+                .exec();
+        
+            const xml = create({ version: '1.0', encoding: 'UTF-8' })
+                .ele('urlset')
+                .att('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+                .att('xmlns:news', 'https://www.google.com/schemas/sitemap-news/0.9');
+        
+            articles.forEach((article) => {
+                const url = xml.ele('url');
+                url.ele('loc').txt('https://neherald.com/'+ article.post_category +'/' + article.post_url);
+                const news = url.ele('news:news');
+                news.ele('news:publication')
+                .ele('news:name').txt('Northeast Herald');
+                news.ele('news:language').txt('en');
+                news.ele('news:publication_date').txt(article.update_date);
+                news.ele('news:title').txt(article.post_name);
+                news.ele('news:keywords').txt(article.post_keyword);
+            });
+        
+            const xmlString = xml.end({ prettyPrint: true });
+        
+            fs.writeFileSync(path.join(__dirname, '../../public/gnews.xml'), xmlString, 'utf8');
+        
+            console.log('News sitemap generated successfully.');
+            } catch (error) {
+            console.error('Error generating news sitemap:', error);
+            }
+        }
+        
+        generateNewsSitemap();
 
+          exports.SiteMap = async (req, res) => {
+            try {
+              const sitemapXml = await generateNewsSitemap();
+              res.header('Content-Type', 'application/xml');
+              res.send(sitemapXml);
+            } catch (error) {
+              console.error(error);
+              res.status(500).send('Internal Server Error');
+            }
+        };
+          
+
+
+
+        async function generateSiteMap() {
+        try {
+            const articles = await allNews.find()
+            .sort({ publishedAt: -1 })
+            .limit(100)
+            .exec();
+
+            const xml = create({ version: '1.0', encoding: 'UTF-8' })
+            .ele('urlset', {
+                xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9',
+                'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:schemaLocation': 'http://www.sitemaps.org/schemas/sitemap/0.9\nhttp://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
+            });
+
+            articles.forEach((article) => {
+            xml.ele('url')
+                .ele('loc').txt('https://neherald.com/'+ article.post_category +'/' + article.post_url).up()
+                .ele('lastmod').txt(new Date(article.update_date).toISOString())
+                .ele('priority').txt('1.00').up()
+                .up();
+            });
+
+            const xmlString = xml.end({ prettyPrint: true });
+
+            fs.writeFileSync(path.join(__dirname, '../../public/sitemap.xml'), xmlString, 'utf8');
+
+            console.log('News sitemap generated successfully.');
+        } catch (error) {
+            console.error('Error generating news sitemap:', error);
+        }
+        }
+
+        generateSiteMap();
