@@ -72,6 +72,9 @@ router.get('/api/v1/video', adminController.addVideos);
 router.get('/api/v1/allnews', allController.homeAPI);
 
 
+router.get('/rss/feed/tripura.xml', allController.TripuraXML);
+
+
 
 
 

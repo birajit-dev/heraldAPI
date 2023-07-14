@@ -14,6 +14,7 @@ const youtube = require('../model/youtube');
 const { create, xmlEscape } = require('xmlbuilder2');
 const allnews = require('../model/allnews');
 
+const rss = require('rss');
 
 const fs = require('fs');
 const path = require('path');
@@ -400,3 +401,46 @@ const path = require('path');
         }
 
         generateSiteMap();
+
+
+
+        exports.TripuraXML = async (req, res) => {
+            try {
+              const articles = await allNews.find().exec();
+              // Create a new RSS feed
+              const feed = new rss({
+                title: 'Tripura | Northeast Herald',
+                description: 'Northeast Herald starts its journey from Tripura state capital city Agartala to cover the entire Northeast region of India for the latest news, news photos, and the latest photos to promote the great cultural, historical and traditional identity of the region.',
+                feed_url: 'https://neherald.com/tripura',
+                site_url: 'https://neherald.com/tripura',
+                image_url: 'https://neherald.com/images/favicon/apple-icon-57x57.png',
+                managingEditor: 'editor@example.com',
+                language: 'en',
+                pubDate: new Date(),
+              });
+          
+              // Add each article to the feed
+              articles.forEach(article => {
+                feed.item({
+                  title: article.post_name,
+                  description: `<div><img src="${article.post_image}" style="width: 100%;" /><div>${article.post_name}</div></div>`,
+                  url: article.post_url,
+                  guid: article._id.toString(),
+                  author: 'editor@example.com',
+                  date: article.update_date,
+                });
+                      // Add media:content field
+              });
+          
+              // Set the response content type to XML
+              res.set('Content-Type', 'application/rss+xml');
+          
+              // Send the generated RSS feed as the response
+              fs.writeFileSync(path.join(__dirname, '../../public/national.xml'), feed.xml(), 'utf8');
+
+              //res.send(feed.xml());
+            } catch (err) {
+              console.error(err);
+              res.status(500).send('Internal Server Error');
+            }
+          }
