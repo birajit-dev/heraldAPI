@@ -6,7 +6,7 @@ const allNews = require('../model/allnews');
 
 exports.generateRSS = async (req, res) => {
   try {
-    const categories = ['triura', 'sports', 'national', 'finance', 'showbiz', 'life', 'world', 'health'];
+    const categories = ['tripura', 'sports', 'national', 'finance', 'showbiz', 'life', 'world', 'health'];
 
     for (const category of categories) {
       const articles = await allNews.find({ post_category: category }).limit(20).exec();
