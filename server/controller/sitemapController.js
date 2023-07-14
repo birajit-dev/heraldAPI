@@ -47,8 +47,8 @@ async function generateNewsSitemap() {
 async function generateSiteMap() {
   try {
     const articles = await News.find()
-      .sort({ publishedAt: -1 })
-      .limit(100)
+      .sort({ news_id: -1 })
+      .limit(500)
       .exec();
 
     const xml = create({ version: '1.0', encoding: 'UTF-8' })
