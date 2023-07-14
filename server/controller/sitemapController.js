@@ -47,7 +47,7 @@ async function generateNewsSitemap() {
 async function generateSiteMap() {
   try {
     const articles = await News.find()
-      .sort({ news_id: -1 })
+      .sort({ publishedAt: -1 })
       .limit(100)
       .exec();
 
@@ -59,11 +59,9 @@ async function generateSiteMap() {
       });
 
     articles.forEach((article) => {
-      xml.ele('url')
-        .ele('loc').txt('https://neherald.com/'+ article.post_category +'/' + article.post_url).up()
-        .ele('lastmod').txt(new Date(article.update_date).toISOString())
-        .ele('priority').txt('1.00').up()
-        .up();
+      const url = xml.ele('url');
+      url.ele('loc').txt('https://neherald.com/'+ article.post_category +'/' + article.post_url);
+      url.ele('lastmod').txt(new Date(article.update_date).toISOString());
     });
 
     const xmlString = xml.end({ prettyPrint: true });
@@ -76,7 +74,10 @@ async function generateSiteMap() {
   }
 }
 
-// Run the functions every 1 hour
+generateSiteMap();
+generateNewsSitemap();
+
+// // Run the functions every 1 hour
 setInterval(() => {
   generateSiteMap();
   generateNewsSitemap();
