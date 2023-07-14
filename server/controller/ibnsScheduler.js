@@ -28,9 +28,10 @@ var moment = require('moment'); // require
     };
     const ranDom = getRandomInt(9999);
 
-    // const event = new Date();
-    // const options = {  year: 'numeric', month: 'short', day: 'numeric' };
-    // const newDate = event.toString('en-US', options);
+/*
+    const event = new Date();
+    const options = {  year: 'numeric', month: 'short', day: 'numeric' };
+    const newDate = event.toString('en-US', options);
 
 
     exports.sports = async(req, res) =>{
@@ -120,7 +121,6 @@ var moment = require('moment'); // require
             }
         }
         })
-
     }
 
     exports.finance = async(req, res) =>{
@@ -352,3 +352,58 @@ var moment = require('moment'); // require
         })
 
     }
+
+*/
+
+exports.saveAllIbns = async (req, res) => {
+    const categories = ['sports', 'news', 'finance', 'showbiz', 'life', 'world', 'health'];
+    const newDate = moment().format('lll');
+    const url = 'https://www.indiablooms.com/news/feeds.json';
+    const dashAllNews = await allNews.find().sort({ ibns_id: -1 }).lean();
+    const settings = { method: 'GET' };
+  
+    try {
+      const response = await fetch(url, settings);
+      const json = await response.json();
+  
+      for (const category of categories) {
+        const data = json.news[category];
+  
+        if (data != null) {
+          for (const item of data) {
+            if (item.content.length > 10) {
+              const selected = dashAllNews.find((it) => it.ibns_id === item.id);
+  
+              if (!selected) {
+                const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                const postCategory = category === 'news' ? 'national' : category;
+                const ipage = new allNews({
+                  post_name: item.title,
+                  post_url: iurl,
+                  post_summary: item.description,
+                  post_content: item.content,
+                  post_keyword: `agartala news, tripura news, northeast herald, ${postCategory} news`,
+                  meta_description: item.description,
+                  post_category: postCategory,
+                  post_image: item.imageName,
+                  meta_tags: 'Sport news',
+                  post_topic: '',
+                  post_editor: 'No',
+                  ne_insight: 'No',
+                  author: 'IBNS',
+                  update_date: newDate,
+                  ibns_id: item.id
+                });
+                await ipage.save();
+              }
+            }
+          }
+        }
+      }
+      res.sendStatus(200);
+    } catch (error) {
+      console.error('Error in fetching and saving data:', error);
+      res.sendStatus(500);
+    }
+  };
+      

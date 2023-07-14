@@ -7,6 +7,8 @@ const galleryController = require('../controller/galleryController');
 const ibnsAutomation = require('../controller/ibnsScheduler');
 const sessions = require('express-session');
 const ibns = require('../model/ibns');
+const RssFeed = require('../controller/rsscontroller');
+const SitemapGenerator = require('../controller/sitemapController');
 
 // CLIENT SIDE ROUTE//
 router.get('/', allController.homePage); // HOMEPAGE
@@ -15,7 +17,6 @@ router.get('/:cat', allController.categoryPage); // CATEGORY PAGE
 router.get('/en/pages/:pageurl', allController.pagesection);
 router.get('/photo/neh/gallery/:gurl', galleryController.pageGallery);
 router.get('/topnews/headlines/tripura', allController.topNewsPage);
-router.get('/site/map/sitemap.xml', allController.SiteMap);
 //router.get('/automation/ibns/all', adminController.ibns);
 //router.get('/a/a/a/test', adminController.testi);
 
@@ -51,14 +52,17 @@ router.get('/admin/user/deletebreaking/:id', adminController.deleteBreaking);
 
 
 
-//IBNS Automation//
-router.get('/ibns/automation/category/sports/do', ibnsAutomation.sports);
-router.get('/ibns/automation/category/news/do', ibnsAutomation.news);
-router.get('/ibns/automation/category/showbiz/do', ibnsAutomation.showbiz);
-router.get('/ibns/automation/category/finance/do', ibnsAutomation.finance);
-router.get('/ibns/automation/category/health/do', ibnsAutomation.health);
-router.get('/ibns/automation/category/life/do', ibnsAutomation.life);
-router.get('/ibns/automation/category/world/do', ibnsAutomation.world);
+
+
+
+//Generator
+router.get('/automate/generate/ibns', ibnsAutomation.saveAllIbns);
+router.get('/automate/generate/rss', RssFeed.generateRSS);
+
+
+
+
+
 
 
 
@@ -71,8 +75,6 @@ router.get('/api/v1/video', adminController.addVideos);
 
 router.get('/api/v1/allnews', allController.homeAPI);
 
-
-router.get('/rss/feed/tripura.xml', allController.TripuraXML);
 
 
 
