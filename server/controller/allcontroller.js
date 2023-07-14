@@ -406,7 +406,7 @@ const path = require('path');
 
         exports.TripuraXML = async (req, res) => {
             try {
-              const articles = await allNews.find().exec();
+              const articles = await allNews.find().limit(20).exec();
               // Create a new RSS feed
               const feed = new rss({
                 title: 'Tripura | Northeast Herald',
