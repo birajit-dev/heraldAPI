@@ -9,7 +9,7 @@ exports.generateRSS = async (req, res) => {
     const categories = ['tripura', 'sports', 'national', 'finance', 'showbiz', 'life', 'world', 'health'];
 
     for (const category of categories) {
-      const articles = await allNews.find({ post_category: category }).limit(20).exec();
+      const articles = await allNews.find({ post_category: category }).sort({news_id: -1}).limit(20).exec();
 
       // Create a new RSS feed
       const feed = new rss({
