@@ -244,6 +244,9 @@
           <div class="col">
             <div class="card shadow-sm">
               <iframe width="" height="200" src="https://www.youtube.com/embed/{{video_key}}" title="YouTube video player" frameborder="0" allow=" clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen onclick="window.location.href = 'https://www.youtube.com/watch?v={{video_key}}&ab_channel=NortheastHerald'"></iframe>
+
+
+              
               <div class="card-body" style="padding:10px;">
                 <h3 class="card-text" style="font-size: 15px;"></h3>
                 <div class="d-flex justify-content-between align-items-center">
@@ -566,4 +569,20 @@
         imageObserver.observe(image);
       });
     });
+  </script>
+
+    <script>
+    const embedContainers = document.querySelectorAll('.embed-container');
+
+    function loadYouTubeVideos() {
+      embedContainers.forEach(container => {
+        const iframe = container.querySelector('iframe');
+        if (iframe) {
+          iframe.src = iframe.getAttribute('data-src');
+        }
+      });
+    }
+
+    // Add an event listener to load the YouTube videos when the document is fully loaded
+    document.addEventListener('DOMContentLoaded', loadYouTubeVideos);
   </script>
