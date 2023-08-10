@@ -135,54 +135,6 @@
   </section>
   {{!-- End of Tripura News & Article --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- {{!-- Article --}}
-  {{!-- <section class="space-sm-ptb" >
-    <div class="container" style="max-width: 1130px;">
-      <div class="row">
-            <div class="col-lg-12" style="background-color:white;border-radius:10px;">
-              <div class="section-title" style="padding:8px;margin-bottom: -2px;">
-                <h6 class="mb-0" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">Article</h6> 
-                <a href="/recommended-for-you" onclick="gaFireRhsWidgetViewAll('/recommended-for-you','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/recommended-for-you','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
-                width: 9px;
-                height: 14px;
-                background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
-              </div>
-            <div class="row" style="margin-top:10px;">
-              {{#each article}}
-              <div class="col-md-4" style="margin-bottom: 8px;">
-                <div class="col" onclick="window.location.href = '/{{post_category}}/{{post_url}}'">
-                  <div class="card shadow-sm">
-                    <img class="bd-placeholder-ing card-img-top" src="{{post_image}}" style="height: 200px;">
-                    <div class="card-body" style="padding:10px;">
-                      <h3 class="card-text" style="font-size: 15px;">{{post_name}}</h3>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted"></small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {{/each}}
-            </div>
-      </div>
-    </div>
-    </div>
-  </section> --}}
-  {{!-- End of Spot Lights --}}
   
   {{>check}}
 
@@ -200,20 +152,22 @@
                     
 
                      <!-- item-01 -->
-                    {{#each gallery}}
-                    <div class="item" onclick="window.location.href = '/photo/neh/gallery/{{gallery_url}}'">
-                      <div class="sport-tournament">
-                        <div class="tournament-details">
-                          <div class="">
-                          <img src="https://northeastherald.sfo3.digitaloceanspaces.com/{{this.gallery_path.[0]}}" style="height:500px;">
-                          </div>
-                          <div class="">
-                            <h4 style="text-align: center;background-color:gray;color:white;font-size:20px;">{{gallery_title}}</h4>
-                          </div>
-                           </div>       
-                      </div>
-                    </div>
-                    {{/each}}
+                    <!-- item-01 -->
+{{#each gallery}}
+<div class="item" onclick="window.location.href = '/photo/neh/gallery/{{gallery_url}}'">
+  <div class="sport-tournament">
+    <div class="tournament-details">
+      <div class="">
+        <img data-src="https://northeastherald.sfo3.digitaloceanspaces.com/{{this.gallery_path.[0]}}" style="height:500px;" class="lazyload">
+      </div>
+      <div class="">
+        <h4 style="text-align: center;background-color:gray;color:white;font-size:20px;">{{gallery_title}}</h4>
+      </div>
+    </div>       
+  </div>
+</div>
+{{/each}}
+
                   </div>
                 </div>
               </div>
@@ -225,91 +179,6 @@
 
 
 
-
-{{!-- 
-  <section class="space-sm-ptb mb-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="live-score">
-            <div class="live-score-left">
-              <div class="title"> LIVE
-                <br>SCORE <span class="live-btn"> </span> </div>
-              <div class="sport-icon"> <img class="img-fluid" src="images/news/sports/sport-icon.png" alt=""> </div>
-            </div>
-            <div class="live-score-slider">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="owl-carousel owl-loaded owl-drag arrow-styel-04" data-nav-dots="false" data-nav-arrow="true" data-items="1" data-xl-items="1" data-lg-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-xx-items="1" data-autoheight="true" data-autoplay="false">
-                    
-                    
-                    <!-- item-01 -->
-                    <div class="item">
-                      <div class="sport-tournament">
-                        <div class="tournament-details"> <span class="tournament-name">ICC Women’s Cricket Worls Cup</span> <span class="tournament-match">Match 15</span> <span class="tournament-date">16 March,Wed</span> <span class="tournament-venue">Bay Oval,Mount Maunganui</span> </div>
-                        <div class="tournament-score">
-                          <div class="team-01 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/06.jpg" alt="">
-                            <span class="team-name">IN-W</span> </span> <span class="team-score">234/10</span> <span class="team-overs">(36.2)RR 3.68</span> </div> <span class="team-vs">V/S</span>
-                          <div class="team-02 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/02.jpg" alt="">
-                            <span class="team-name">EN-W</span> </span> <span class="team-score">150/4</span> <span class="team-overs">(27.1)RR 4.15</span> </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- item-02 -->
-
-
-                    <div class="item">
-                      <div class="sport-tournament">
-                        <div class="tournament-details"> <span class="tournament-name">ICC Women’s Cricket Worls Cup</span> <span class="tournament-match">Match 15</span> <span class="tournament-date">20 April,Fri</span> <span class="tournament-venue">Bay Oval,Mount Maunganui</span> </div>
-                        <div class="tournament-score">
-                          <div class="team-01 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/09.jpg" alt="">
-                            <span class="team-name">FR-W</span> </span> <span class="team-score">300/10</span> <span class="team-overs">(48.2)RR 3.68</span> </div> <span class="team-vs">V/S</span>
-                          <div class="team-02 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/11.jpg" alt="">
-                            <span class="team-name">DS-W</span> </span> <span class="team-score">250/4</span> <span class="team-overs">(36.1)RR 4.15</span> </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- item-03 -->
-                    <div class="item">
-                      <div class="sport-tournament">
-                        <div class="tournament-details"> <span class="tournament-name">ICC Women’s Cricket Worls Cup</span> <span class="tournament-match">Match 15</span> <span class="tournament-date">25 May,Thu</span> <span class="tournament-venue">Bay Oval,Mount Maunganui</span> </div>
-                        <div class="tournament-score">
-                          <div class="team-01 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/12.jpg" alt="">
-                            <span class="team-name">IT-W</span> </span> <span class="team-score">250/10</span> <span class="team-overs">(47.2)RR 3.68</span> </div> <span class="team-vs">V/S</span>
-                          <div class="team-02 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/06.jpg" alt="">
-                            <span class="team-name">IN-W</span> </span> <span class="team-score">175/4</span> <span class="team-overs">(35.5)RR 4.15</span> </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- item-04 -->
-                    <div class="item">
-                      <div class="sport-tournament">
-                        <div class="tournament-details"> <span class="tournament-name">ICC Women’s Cricket Worls Cup</span> <span class="tournament-match">Match 15</span> <span class="tournament-date">2 June,Mon</span> <span class="tournament-venue">Bay Oval,Mount Maunganui</span> </div>
-                        <div class="tournament-score">
-                          <div class="team-01 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/06.jpg" alt="">
-                            <span class="team-name">IN-W</span> </span> <span class="team-score">134/10</span> <span class="team-overs">(36.2)RR 3.68</span> </div> <span class="team-vs">V/S</span>
-                          <div class="team-02 team"> <span class="team-name-flag">
-                            <img class="img-fluid country-flag" src="images/country-flags/02.jpg" alt="">
-                            <span class="team-name">EN-W</span> </span> <span class="team-score">113/4</span> <span class="team-overs">(27.1)RR 4.15</span> </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> --}}
 
 
   {{!-- National News --}}
@@ -413,93 +282,6 @@
 
 
 
-
-
-  {{!-- Videos --}}
-  {{!-- <section class="space-lg-ptb bg-holder video-section" style="background-image: url(images/bg/01.jpg);">
-    <div class="container" style="max-width: 1130px;">
-      <div class="row">
-
-        
-        <div class="col-lg-6 col-xl-7">
-          <div class="video-box">
-            <div class="section-title">
-              <h2 class="mb-0 text-white"><i class="fa-solid fa-bolt-lightning" style="color: #032a63;"></i>Watch It</h2> 
-            </div>
-            <div class="video-image"> 
-              <img class="img-fluid" src="images/bg/video-bg.jpg" alt="image">
-              <a class="video-btn popup-youtube" href="../../../www.youtube.com/watchb1ef.html?v=LgvseYYhqU0">
-                <i class="fas fa-play"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div class="col-lg-6 col-xl-5">
-          <div class="blog-style-vertical">
-            <div class="blog-post post-style-05">
-              <div class="blog-image"> <img class="img-fluid" src="images/blog/20.jpg" alt="">
-                <div class="video-icon"><a href="#"><i class="fa-solid fa-video text-orange"></i></a></div>
-              </div>
-              <div class="blog-post-details"> 
-                <h6 class="blog-title" style="font-size:18px;"><a href="#">Gaming is our passion. We create fun games that you'll love</a></h6>
-              </div>
-            </div>
-
-
-
-            <div class="blog-post post-style-05">
-              <div class="blog-post-date"> <a href="#">Mon</a>
-                <h2>08</h2> </div>
-              <div class="blog-image"> <img class="img-fluid" src="images/blog/09.jpg" alt="">
-                <div class="video-icon"><a href="#"><i class="fa-solid fa-video text-primary"></i></a></div>
-              </div>
-              <div class="blog-post-details"> <span class="badge badge-small bg-purple">Sport</span>
-                <h6 class="blog-title"><a href="#">Sport is important for good health</a></h6>
-                <div class="blog-view"> <a href="#">9 M Views</a> <a class="" href="#">4Days Ago</a> </div>
-              </div>
-            </div>
-            <div class="blog-post post-style-05">
-              <div class="blog-post-date"> <a href="#">Tue</a>
-                <h2>15</h2> </div>
-              <div class="blog-image"> <img class="img-fluid" src="images/blog/21.jpg" alt="">
-                <div class="video-icon"><a href="#"><i class="fa-solid fa-video text-purple"></i></a></div>
-              </div>
-              <div class="blog-post-details"> <span class="badge badge-small bg-blue">TRAVEL</span>
-                <h6 class="blog-title"><a href="#">Affordable travel. Unforgettable experiences</a></h6>
-                <div class="blog-view"> <a href="#">7 M Views</a> <a class="" href="#">3Days Ago</a> </div>
-              </div>
-            </div>
-            <div class="blog-post post-style-05">
-              <div class="blog-post-date"> <a href="#">Wed</a>
-                <h2>09</h2> </div>
-              <div class="blog-image"> <img class="img-fluid" src="images/blog/22.jpg" alt="">
-                <div class="video-icon"><a href="#"><i class="fa-solid fa-video text-red"></i></a></div>
-              </div>
-              <div class="blog-post-details"> <span class="badge badge-small bg-pink">LIFESTYLE</span>
-                <h6 class="blog-title"><a href="#">Everyone Should Believe In Lifestyle</a></h6>
-                <div class="blog-view"> <a href="#">5 M Views</a> <a class="" href="#">2Days Ago</a> </div>
-              </div>
-            </div>
-            <div class="blog-post post-style-05">
-              <div class="blog-post-date"> <a href="#">Thu</a>
-                <h2>25</h2> </div>
-              <div class="blog-image"> <img class="img-fluid" src="images/blog/20.jpg" alt="">
-                <div class="video-icon"><a href="#"><i class="fa-solid fa-video text-orange"></i></a></div>
-              </div>
-              <div class="blog-post-details"> <span class="badge badge-small bg-orange">GAME</span>
-                <h6 class="blog-title"><a href="#">Get ready for fun challenges and unique online gameplay</a></h6>
-                <div class="blog-view"> <a href="#">13 M Views</a> <a class="" href="#">5Days Ago</a> </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>  --}}
-  {{!-- Ennd of Videos --}}
 
 
   {{!-- Sports News --}}
@@ -773,21 +555,8 @@
 
 
 
-  <!--=================================
-  Back To Top -->
   <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
       <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
     </svg>
   </div>
-  <!--=================================
-  Back To Top -->
-
-  <!--=================================
-    Javascript -->
-  <!-- JS Global Compulsory (Do not remove)-->
-  
-</body>
-
-
-</html>
