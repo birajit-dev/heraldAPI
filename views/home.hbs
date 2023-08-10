@@ -19,20 +19,20 @@
         background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
             </div>
               {{#each tripuranews}}
-                <div class="blog-post post-style-04 lazy-load-image" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;padding:5px;">
-                  <div class="blog-image lazy-load-image"> 
-                    <img class="img-fluid" data-src="{{post_image}}" alt="">
-                  </div>
-                  <div class="blog-post-details"> 
-                    <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
-                        <div class="blog-post-meta">
-                          <div class="blog-post-time" style="font-size:12px"> 
-                            <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a>
-                          </div>
-                        </div>
-                  </div>
-                </div>    
-              {{/each}}
+      <div class="blog-post post-style-04 lazy-load-image" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;padding:5px;">
+        <div class="blog-image lazy-load-image"> 
+          <img class="img-fluid" data-src="{{post_image}}" alt="">
+        </div>
+        <div class="blog-post-details"> 
+          <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+          <div class="blog-post-meta">
+            <div class="blog-post-time" style="font-size:12px"> 
+              <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
           </div>
 
 
