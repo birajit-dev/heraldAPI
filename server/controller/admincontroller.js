@@ -438,18 +438,7 @@ const newDate = moment().format('lll');
     }
 
 
-    router.get('/admin/logout', authMiddleware.authenticateAdmin, (req, res) => {
-        // Clear the session data for the logged-in user
-        req.session.destroy((err) => {
-          if (err) {
-            console.error('Error destroying session:', err);
-            return res.status(500).send('Internal Server Error');
-          }
-          
-          // Redirect to the login page or another page after logout
-          res.redirect('/admin-darius/login');
-        });
-      });
+
 
 
 
