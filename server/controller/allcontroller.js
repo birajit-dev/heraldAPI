@@ -61,7 +61,7 @@ const path = require('path');
                 
                 const gallery = await allGallery.find().sort({gallery_id:-1}).limit('5').lean();
                 const pujaGallery = await allGallery.find({gallery_keyword:'Puja'}).sort({gallery_id:-1}).lean();
-                const skipGallery = await allGallery.find().sort({gallery_id:-1}).skip(1).limit('10').lean();
+                const skipGallery = await allGallery.find({gallery_keyword: { $ne: 'Puja' }}).sort({gallery_id:-1}).skip(1).limit('10').lean();
 
                 //YouTube Fetch
                 //const fYt = await youtube.find().sort({video_id:-1}).limit('1').lean();
