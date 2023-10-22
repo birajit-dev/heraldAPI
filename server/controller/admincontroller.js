@@ -26,12 +26,16 @@ var moment = require('moment'); // require
 
 const newDate = moment().format('lll');
 
-
     const spacesEndpoint = new aws.Endpoint('sfo3.digitaloceanspaces.com');
     const s3 = new aws.S3({
         endpoint: spacesEndpoint,
         accessKeyId:'DO00YCW72DZT2Q6WMMFF',
         secretAccessKey:'SQyXsV6kK6GsQHEUlFTCjfQ2LyKmSnAiPqAn4MAmMrc'
+        
+        //new accesskey
+        //DO00ENCQU7FDX8ZJAMYZ
+        //new secret key
+        //WcXhyb9n4ebPZS1uX8lSwuCCoKK8kbwDexVDGmTqC4M
     });
 
 
@@ -436,6 +440,8 @@ const newDate = moment().format('lll');
         });
         }
     }
+
+
 
 
 

@@ -37,7 +37,7 @@
                   </div>
                 </div>
                  <div class="blog-post-image mb-4">
-                  <img class="img-fluid" src="{{singlenews.post_image}}" alt="">
+                  <img class="img-fluid" src="{{transformURL singlenews.post_image}}" alt="">
                 </div>
                 
                 <div class="singlenews" style="text-align: justify;font-family:'PT Serif';font-size:18px;color:black">
@@ -98,7 +98,7 @@
           </div>
           {{#each relatedNews}}
           <div class="blog-post post-style-04" style="display:flex;padding:5px;border-bottom:1px solid #d1d8e6;margin-bottom:5px">
-            <div class="blog-image" style="min-width:70px;width:0%;margin-right:10px"> <img class="img-fluid bg-overlay-black-93" src="{{post_image}}" alt="" style="width:70px;height:70px"> </div>
+            <div class="blog-image" style="min-width:70px;width:0%;margin-right:10px"> <img class="img-fluid bg-overlay-black-93" src="{{transformURL post_image}}" alt="" style="width:70px;height:70px"> </div>
             <div class="blog-post-details"> 
               <h6 class="blog-title" style="color:black;font-size:15px;font-family:'Lato,sans-serif'"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
               <div class="blog-post-meta">

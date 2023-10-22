@@ -84,7 +84,6 @@ router.get('/api/v1/allnews', allController.homeAPI);
 
 
 
-
 //ERROR//
 router.get('/error/404', allController.Error);
 

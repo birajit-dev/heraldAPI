@@ -6,7 +6,7 @@
         <div class="col-lg-7">
           {{#each topheadlines}}
           <div class="blog-post post-style-01" onclick="window.location.href = '/topnews/headlines/tripura'">
-            <div class="blog-image"> <img class="img-fluid" src="{{post_image}}" alt="" style="height: 420px;"> </div>
+            <div class="blog-image"> <img class="img-fluid" src="{{transformURL post_image}}" alt="" style="height: 420px;"> </div>
             <div class="blog-post-details"> <span class="badge badge-large bg-primary">Top News</span>
               <h3 class="blog-title"><a href="/topnews/headlines/tripura">{{post_name}}</a></h3>
               <div class="blog-post-meta">
@@ -31,7 +31,7 @@
           </div>
           {{#each latestnews}}
           <div class="blog-post post-style-04" style="display:flex">
-            <div class="blog-image" style="margin-right:10px;width:1%;"> <img class="img-fluid bg-overlay-black-93" src="{{post_image}}" alt="" style="width:120px"> </div>
+            <div class="blog-image" style="margin-right:10px;width:1%;"> <img class="img-fluid bg-overlay-black-93" src="{{transformURL post_image}}" alt="" style="width:120px"> </div>
             <div class="blog-post-details"> 
               <h6 class="blog-title" style="color: white;"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
               <div class="blog-post-meta">
