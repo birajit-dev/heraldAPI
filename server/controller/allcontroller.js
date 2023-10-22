@@ -59,7 +59,7 @@ const path = require('path');
                 const topheadlines = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
                 //const topheadlines = await allNews.find({news_id:'3291'}).sort({news_id:-1}).limit('1').lean();
                 
-                const gallery = await allGallery.find().sort({gallery_id:-1}).limit('5').lean();
+                const gallery = await allGallery.find({gallery_keyword: { $ne: 'Puja' }}).sort({gallery_id:-1}).limit('5').lean();
                 const pujaGallery = await allGallery.find({gallery_keyword:'Puja'}).sort({gallery_id:-1}).lean();
                 const skipGallery = await allGallery.find({gallery_keyword: { $ne: 'Puja' }}).sort({gallery_id:-1}).skip(1).limit('10').lean();
 
