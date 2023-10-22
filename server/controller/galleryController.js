@@ -20,11 +20,11 @@ var moment = require('moment'); // require
 
 
 
-const spacesEndpoint = new aws.Endpoint('sfo3.digitaloceanspaces.com');
+const spacesEndpoint = new aws.Endpoint('blr1.digitaloceanspaces.com');
 const s3 = new aws.S3({
   endpoint: spacesEndpoint,
-  accessKeyId:'DO00YCW72DZT2Q6WMMFF',
-  secretAccessKey:'SQyXsV6kK6GsQHEUlFTCjfQ2LyKmSnAiPqAn4MAmMrc'
+  accessKeyId:'DO00ENCQU7FDX8ZJAMYZ',
+  secretAccessKey:'WcXhyb9n4ebPZS1uX8lSwuCCoKK8kbwDexVDGmTqC4M'
 });
 
 
@@ -40,7 +40,7 @@ function getRandomInt(max) {
     const upload = multer({
         storage: multerS3({
           s3: s3,
-          bucket: 'northeastherald',
+          bucket: 'birdev',
           acl: 'public-read',
           key: function (request, file, cb) {
             console.log(file);
