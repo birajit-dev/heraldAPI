@@ -34,6 +34,7 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>IBNS ID</th>
                     <th>Post Name</th>
                     <th>Category</th>
                     <th>Date</th>
@@ -45,6 +46,7 @@
             <tbody>
                 {{#each dashAllNews}}
                 <tr>
+                    <td>{{ibns_id}}</td>
                     <td style="font-weight:700">{{post_name}}</td>
                     <td style="text-transform: capitalize;">{{post_category}}</td>
                     <td>{{update_date}}</td>
