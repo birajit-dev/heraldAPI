@@ -128,7 +128,8 @@ const newDate = moment().format('lll');
                 res.redirect('/admin/user/login');
             }
             else{
-                const dashAllNews = await allNews.find().sort({update_date:-1}).lean();
+                //const dashAllNews = await allNews.find().sort({update_date:-1}).lean();
+                const dashAllNews = await allNews.find().sort({ update_date: -1 }).limit(200).lean();
                 res.render('admin/dashboard',{
                     title:'Northeast Herald',
                     layout: '',
