@@ -152,54 +152,106 @@ const newDate = moment().format('lll');
         });
     }
 
-    exports.postNews = async(req, res)=>{
-        const ranDom = getRandomInt(999999);
-        const upload = multer({ 
-            storage: multerS3({
-            s3: s3,
-            bucket: 'birdev',
-            acl: 'public-read',
-            key: function (request, file, cb) {
-                console.log(file);
-                cb(null,'news/'+ranDom + file.originalname);
-            }
-            })
-        }).single('myFile', 1);
+    // exports.postNews = async(req, res)=>{
+    //     const ranDom = getRandomInt(999999);
+    //     const upload = multer({ 
+    //         storage: multerS3({
+    //         s3: s3,
+    //         bucket: 'birdev',
+    //         acl: 'public-read',
+    //         key: function (request, file, cb) {
+    //             console.log(file);
+    //             cb(null,'news/'+ranDom + file.originalname);
+    //         }
+    //         })
+    //     }).single('myFile', 1);
 
-        upload(req, res, function(err){
-            if(err){
+    //     upload(req, res, function(err){
+    //         if(err){
+    //             res.send('Something Went Wrong');
+    //         }else{
+    //             //console.log(req.file);
+    //             const filex = req.file.originalname;
+    //             const nFile = ranDom +filex;
+    //             const urlp = "https://birdev.blr1.cdn.digitaloceanspaces.com/news/";
+    //             const aFile = urlp +nFile;
+    //             const nDate = moment().format('lll');
+    //             const {name, summary, mytextarea, keyword, description, category, tags, topics, editor, insight, author} = req.body;
+    //             const purl = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+    //             let upallNews = new allNews({
+    //                 post_name: name,
+    //                 post_url: purl,
+    //                 post_summary: summary,
+    //                 post_content:mytextarea,
+    //                 post_keyword:keyword,
+    //                 meta_description:description,
+    //                 post_category:category,
+    //                 post_image: aFile,
+    //                 meta_tags:tags,
+    //                 post_topic:topics,
+    //                 post_editor:editor,
+    //                 ne_insight:insight,
+    //                 author:author,
+    //                 update_date:nDate
+    //             });
+    //             upallNews.save();
+    //             res.redirect('/admin/user/dashboard');
+    //         }
+    //     });    
+    // }
+
+
+
+    exports.postNews = async(req, res) => {
+        const ranDom = getRandomInt(999999);
+        
+        const storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, 'public/uploads/news'); // Define the destination folder within the public directory
+            },
+            filename: function (req, file, cb) {
+                const ext = file.originalname.split('.').pop();
+                const fileName = ranDom + '-' + Date.now() + '.' + ext; // Generate unique file name
+                cb(null, fileName);
+            }
+        });
+    
+        const upload = multer({ storage: storage }).single('myFile', 1);
+    
+        upload(req, res, function(err) {
+            if (err) {
                 res.send('Something Went Wrong');
-            }else{
-                //console.log(req.file);
-                const filex = req.file.originalname;
-                const nFile = ranDom +filex;
-                const urlp = "https://birdev.blr1.cdn.digitaloceanspaces.com/news/";
-                const aFile = urlp +nFile;
+            } else {
+                const fileName = req.file.filename; // Use the generated file name
+                const urlp = "/uploads/news/"; // Define your base URL where files are stored
+                const filePath = urlp + fileName;
                 const nDate = moment().format('lll');
-                const {name, summary, mytextarea, keyword, description, category, tags, topics, editor, insight, author} = req.body;
+                const { name, summary, mytextarea, keyword, description, category, tags, topics, editor, insight, author } = req.body;
                 const purl = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
                 let upallNews = new allNews({
                     post_name: name,
                     post_url: purl,
                     post_summary: summary,
-                    post_content:mytextarea,
-                    post_keyword:keyword,
-                    meta_description:description,
-                    post_category:category,
-                    post_image: aFile,
-                    meta_tags:tags,
-                    post_topic:topics,
-                    post_editor:editor,
-                    ne_insight:insight,
-                    author:author,
-                    update_date:nDate
+                    post_content: mytextarea,
+                    post_keyword: keyword,
+                    meta_description: description,
+                    post_category: category,
+                    post_image: filePath,
+                    meta_tags: tags,
+                    post_topic: topics,
+                    post_editor: editor,
+                    ne_insight: insight,
+                    author: author,
+                    update_date: nDate
                 });
                 upallNews.save();
                 res.redirect('/admin/user/dashboard');
             }
-        });    
+        });
     }
+    
 
+    
     exports.editNews = async(req, res)=>{
         adminSession=req.session;
             if(!adminSession.userid){
