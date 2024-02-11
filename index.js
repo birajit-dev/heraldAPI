@@ -1,6 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-var sassMiddleware = require('node-sass-middleware')
+//var sassMiddleware = require('node-sass-middleware')
 var path = require('path');
 const app = express();
 const sessions = require('express-session');
@@ -37,13 +37,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //console.log( __dirname + '/public/scss');
-app.use(
-  sassMiddleware ({
-      src: __dirname + '/public/scss', 
-      dest: __dirname + '/public',
-      debug: true,       
-  })
-);   
+// app.use(
+//   sassMiddleware ({
+//       src: __dirname + '/public/scss', 
+//       dest: __dirname + '/public',
+//       debug: true,       
+//   })
+// );   
 app.use(express.static(path.join(__dirname, 'public')));
 
 
