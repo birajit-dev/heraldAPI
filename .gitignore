@@ -1,2 +1,7 @@
 /node-module
 node_modules
+/public/uploads/gallery/
+/public/uploads/news/
+public/uploads/gallery/
+public/uploads/news/
+/public/uploads/
