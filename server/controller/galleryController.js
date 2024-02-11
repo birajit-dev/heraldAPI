@@ -15,6 +15,8 @@ const { title } = require('process');
 const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 var moment = require('moment'); // require
+const fs = require('fs');
+
 
 
 
@@ -34,24 +36,96 @@ function getRandomInt(max) {
 
 
 
-  exports.postGallery = async(req, res) =>{
+//   exports.postGallery = async(req, res) =>{
+//     const ranDom = getRandomInt(9999999999);
+//     const nDate = moment().format('lll');
+//     const upload = multer({
+//         storage: multerS3({
+//           s3: s3,
+//           bucket: 'birdev',
+//           acl: 'public-read',
+//           key: function (request, file, cb) {
+//             console.log(file);
+//             cb(null,'gallery/'+ ranDom + file.originalname);
+//             console.log('Fiel Original:', file.originalname);
+//           }
+//         })
+//     }).array('myFile', 10);
+
+//     upload(req, res, (error) => {
+//         console.log('files', req.files);
+//         if (error) {
+//             console.log('errors', error);
+//             res.status(500).json({
+//                 status: 'fail',
+//                 error: error
+//             });
+//         } else {
+//             // If File not found
+//             if (req.files === undefined) {
+//                 console.log('uploadProductsImages Error: No File Selected!');
+//                 res.status(500).json({
+//                     status: 'fail',
+//                     message: 'Error: No File Selected'
+//                 });
+//             } else {
+//                 // If Success
+
+//                 const {title, keyword, description} = req.body;
+//                 var gurl = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+//                 let fileArray = req.files,
+//                     fileLocation;
+//                 const images = [];
+//                 for (let i = 0; i < fileArray.length; i++) {
+//                     fileLocation = fileArray[i].key;
+//                     console.log('filenm', fileLocation);
+//                     images.push(fileLocation)
+//                 }
+//                 let inse = new galleryDb({
+//                     gallery_title: title,
+//                     gallery_keyword: keyword,
+//                     gallery_description: description,
+//                     gallery_path: images,
+//                     gallery_url: gurl,
+//                     update_date: nDate
+//                 });
+//                 inse.save();
+//                 // Save the file name into database
+//                 return res.status(200).json({
+//                     status: 'ok',
+//                     filesArray: fileArray,
+//                     locationArray: images,
+//                 });
+
+                
+
+//             }
+//         }
+//     })
+//   }
+
+
+
+exports.postGallery = async (req, res) => {
     const ranDom = getRandomInt(9999999999);
     const nDate = moment().format('lll');
+
+    // Set up multer to store files locally
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/uploads/gallery');
+        },
+        filename: function (req, file, cb) {
+            cb(null, ranDom + '_' + file.originalname);
+        }
+    });
+
     const upload = multer({
-        storage: multerS3({
-          s3: s3,
-          bucket: 'birdev',
-          acl: 'public-read',
-          key: function (request, file, cb) {
-            console.log(file);
-            cb(null,'gallery/'+ ranDom + file.originalname);
-            console.log('Fiel Original:', file.originalname);
-          }
-        })
+        storage: storage
     }).array('myFile', 10);
 
     upload(req, res, (error) => {
-        console.log('files', req.files);
         if (error) {
             console.log('errors', error);
             res.status(500).json({
@@ -59,28 +133,19 @@ function getRandomInt(max) {
                 error: error
             });
         } else {
-            // If File not found
-            if (req.files === undefined) {
+            // If Success
+            if (!req.files || req.files.length === 0) {
                 console.log('uploadProductsImages Error: No File Selected!');
                 res.status(500).json({
                     status: 'fail',
                     message: 'Error: No File Selected'
                 });
             } else {
-                // If Success
+                const { title, keyword, description } = req.body;
+                const gurl = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                const images = req.files.map(file => file.filename); // Get filenames
 
-                const {title, keyword, description} = req.body;
-                var gurl = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-
-                let fileArray = req.files,
-                    fileLocation;
-                const images = [];
-                for (let i = 0; i < fileArray.length; i++) {
-                    fileLocation = fileArray[i].key;
-                    console.log('filenm', fileLocation);
-                    images.push(fileLocation)
-                }
-                let inse = new galleryDb({
+                const inse = new galleryDb({
                     gallery_title: title,
                     gallery_keyword: keyword,
                     gallery_description: description,
@@ -89,19 +154,18 @@ function getRandomInt(max) {
                     update_date: nDate
                 });
                 inse.save();
-                // Save the file name into database
+                
+                // Return success response with file details
                 return res.status(200).json({
                     status: 'ok',
-                    filesArray: fileArray,
+                    filesArray: req.files,
                     locationArray: images,
                 });
-
-                
-
             }
         }
-    })
-  }
+    });
+};
+
 
   exports.addGallery = async(req, res) =>{
     res.render("admin/addgallery",{
