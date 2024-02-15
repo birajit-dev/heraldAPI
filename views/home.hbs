@@ -7,29 +7,38 @@
   <section class="news-latest-posts" style="margin-top: 30px;">
     <div class="container" style="max-width: 1130px;">
       <div class="row">
-          <div class="col-lg-12 col-md-12 order-lg-12" style="background-color:white;border-radius:5px;">
+        <div class="col-lg-8 col-md-12 order-lg-8" style="background-color:white;border-radius:5px;margin-top:10px;">
+          <div class="section-title" style="padding:8px;margin-bottom: -2px;">
             <h2 class="mb-0" onclick="window.location.href = '/tripura'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">
-                Kisna Jewellery Ads
-              </h2> <br>
-              <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;"> <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden" frameborder="0" type="text/html" src="https://www.dailymotion.com/embed/video/k5w43az7Rx9GwDzWnT6?autoplay=0&loop=0" width="100%" height="100%" allowfullscreen title="Dailymotion Video Player"> </iframe> </div>
-  
-          
+              Tripura News
+            </h2> 
+            <a href="tripura" class="rightLink" style="float: right;width: 9px;height: 14px;
+              background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;">
+            </a>
           </div>
-          <br>
-
-
-        
-          <div class="col-lg-8 col-md-12 order-lg-8" style="background-color:white;border-radius:5px;margin-top:10px;">
-            <div class="section-title" style="padding:8px;margin-bottom: -2px;">
-              <h2 class="mb-0" onclick="window.location.href = '/tripura'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">
-                Tripura News
-              </h2> 
-              <a href="tripura" onclick="gaFireRhsWidgetViewAll('/tripura','rfu_widget_rhs',false,this); goUrlCollectionWebGApoc('/tripura','0','rfu_widget_rhs','','');" class="rightLink" style="float: right;
-        width: 9px;
-        height: 14px;
-        background: url('https://www.livemint.com/lm-img/dev/rightBlock.svg') no-repeat 0 0;"></a>
+          {{#each tripuranews}}
+          <div class="blog-post post-style-04" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;padding:5px;">
+            <div class="blog-image"> 
+              <img class="img-fluid" src="{{transformURL post_image}}" alt="">
             </div>
-              {{#each tripuranews}}
+            <div class="blog-post-details"> 
+              <h6 class="blog-title"><a href="/{{post_category}}/{{post_url}}">{{post_name}}</a></h6>
+              <div class="blog-post-meta">
+                <div class="blog-post-time" style="font-size:12px"> 
+                  <a href="/{{post_category}}/{{post_url}}"><i class="fa-solid fa-calendar-days"></i>{{substr "16" update_date}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+
+          <div class="" style="background-color:white;border-radius:5px;margin-top:10px;">
+      <h2 class="mb-0" onclick="window.location.href = '/tripura'" style="font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif; background:#041f42;color:white;">
+                 Northeast News
+              </h2> 
+              
+      
+      {{#each northeastNews}}
       <div class="blog-post post-style-04" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;padding:5px;">
         <div class="blog-image"> 
           <img class="img-fluid" src="{{transformURL post_image}}" alt="">
@@ -44,7 +53,11 @@
         </div>
       </div>
       {{/each}}
-          </div>
+
+      </div>
+
+      
+        </div>
 
 
         
@@ -56,6 +69,16 @@
                 <img src="/images/ongc_ads.jpg">
               </div>
               <br>
+
+              <h4 class="mb-0" onclick="window.location.href = '/tripura'" style="color:black;font-weight:900;font-size:20px;font-family:'Lato Black',sans-serif">
+                Kisna Jewellery Ads
+              </h4> 
+              <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;"> <iframe style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden" frameborder="0" type="text/html" src="https://www.dailymotion.com/embed/video/k5w43az7Rx9GwDzWnT6?autoplay=0&loop=0" width="100%" height="100%" allowfullscreen title="Dailymotion Video Player"> </iframe> </div>
+
+              <br>
+
+
+
               <div class="row">
                 <img src="/images/longtrai-ads.png">
               </div>
