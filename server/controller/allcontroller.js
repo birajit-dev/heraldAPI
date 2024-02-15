@@ -34,7 +34,7 @@ const path = require('path');
                 const tripuranews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('15').lean();
 
 
-                const northeastNews = await allNews.find({post_category:'tripura',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('8').lean();
+                const northeastNews = await allNews.find({post_category:'northeast',post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('8').lean();
 
                 
                 //const relatedNews = await allNews.find({post_category:catD,post_url:{$ne:nUrl}}).sort({news_id:-1}).limit('5').lean();
