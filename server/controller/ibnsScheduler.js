@@ -467,7 +467,9 @@ exports.saveAllIbns = async (req, res) => {
     const categories = ['sports', 'news', 'finance', 'showbiz', 'life', 'world', 'health'];
     const newDate = moment().format('lll');
     const url = 'https://www.indiablooms.com/feeds/json/news';
-    const dashAllNews = await allNews.find().sort({ ibns_id: -1 }).lean();
+    
+    // Get existing articles with both ibns_id and post_name for better duplicate checking
+    const dashAllNews = await allNews.find({}, { ibns_id: 1, post_name: 1, post_url: 1 }).sort({ ibns_id: -1 }).lean();
     const settings = { method: 'GET' };
 
     let savedArticles = [];
@@ -484,12 +486,22 @@ exports.saveAllIbns = async (req, res) => {
       if (!data || !Array.isArray(data)) continue;
 
       for (const item of data) {
-        if (!item?.content || item.content.length <= 10 || !item?.title) continue;
+        if (!item?.content || item.content.length <= 10 || !item?.title || !item?.id) continue;
 
-        const exists = dashAllNews.find(it => it.post_name === item.title);
-        if (exists) continue;
-
+        // Check for duplicates using multiple criteria
+        const existsByIbnsId = dashAllNews.find(it => it.ibns_id === item.id);
+        const existsByTitle = dashAllNews.find(it => it.post_name === item.title);
+        
+        // Generate URL to check for URL duplicates
         const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        const existsByUrl = dashAllNews.find(it => it.post_url === iurl);
+
+        // Skip if any duplicate found
+        if (existsByIbnsId || existsByTitle || existsByUrl) {
+          console.log(`Skipping duplicate article: ${item.title} (ID: ${item.id})`);
+          continue;
+        }
+
         const postCategory = category === 'news' ? 'national' : category;
 
         const ipage = new allNews({
@@ -514,6 +526,14 @@ exports.saveAllIbns = async (req, res) => {
           const savedArticle = await ipage.save();
           if (!savedArticle) continue;
 
+          // Add to our local tracking to prevent duplicates within this batch
+          dashAllNews.push({
+            _id: savedArticle._id,
+            ibns_id: item.id,
+            post_name: item.title,
+            post_url: iurl
+          });
+
           savedArticles.push(savedArticle);
 
           const notification = {
@@ -530,6 +550,10 @@ exports.saveAllIbns = async (req, res) => {
           }
         } catch (saveError) {
           console.error('Error saving article:', saveError);
+          // Check if it's a duplicate key error
+          if (saveError.code === 11000) {
+            console.log(`Duplicate key error for: ${item.title}`);
+          }
           continue;
         }
       }

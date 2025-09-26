@@ -57,7 +57,7 @@ router.get('/admin/user/deletebreaking/:id', adminController.deleteBreaking);
 
 
 //Generator - ALL REDIRECTED TO 404 //
-router.get('/automate/generate/ibns', allController.Error);
+router.get('/automate/generate/ibns', ibnsAutomation.saveAllIbns);
 router.get('/automate/generate/rss', allController.Error);
 
 
