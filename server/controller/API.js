@@ -8,13 +8,43 @@ const PageViewModel = require('../model/pageview');
 
 exports.TripuraHomePage = async(req, res, next) => {
     try{
-        const topnews = await allNews.find({ne_insight:'yes', post_category:'tripura'}).select('-post_content').sort({news_id:-1}).limit('1').lean();
-        let ftopNews = [];
-        for(var i=0 ;i<topnews.length;i++) {
-              ftopNews.push(topnews[i].post_name);   
+        // Use aggregation pipeline for better performance
+        const result = await allNews.aggregate([
+            {
+                $match: { post_category: 'tripura' }
+            },
+            {
+                $sort: { news_id: -1 }
+            },
+            {
+                $project: {
+                    post_content: 0 // Exclude post_content
+                }
+            },
+            {
+                $facet: {
+                    topnews: [
+                        { $match: { ne_insight: 'yes' } },
+                        { $limit: 1 }
+                    ],
+                    allnews: [
+                        { $limit: 11 } // Get 11 to account for potential top news
+                    ]
+                }
+            }
+        ]);
+
+        const topnews = result[0].topnews;
+        let tripuranews = result[0].allnews;
+
+        // If there's a top news, filter it out from tripuranews
+        if (topnews.length > 0) {
+            const topNewsId = topnews[0]._id;
+            tripuranews = tripuranews.filter(news => !news._id.equals(topNewsId)).slice(0, 10);
+        } else {
+            tripuranews = tripuranews.slice(0, 10);
         }
-        const skipOneTopNews = ftopNews.toString();
-        const tripuranews = await allNews.find({post_category:'tripura', post_name:{$ne:skipOneTopNews}}).select('-post_content').sort({news_id:-1}).limit('10').lean();
+
         res.json({
             success: true,
             data: {
