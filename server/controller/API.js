@@ -8,13 +8,13 @@ const PageViewModel = require('../model/pageview');
 
 exports.TripuraHomePage = async(req, res, next) => {
     try{
-        const topnews = await allNews.find({ne_insight:'yes', post_category:'tripura'}).sort({news_id:-1}).limit('1').lean();
+        const topnews = await allNews.find({ne_insight:'yes', post_category:'tripura'}).select('-post_content').sort({news_id:-1}).limit('1').lean();
         let ftopNews = [];
         for(var i=0 ;i<topnews.length;i++) {
               ftopNews.push(topnews[i].post_name);   
         }
         const skipOneTopNews = ftopNews.toString();
-        const tripuranews = await allNews.find({post_category:'tripura', post_name:{$ne:skipOneTopNews}}).sort({news_id:-1}).limit('10').lean();
+        const tripuranews = await allNews.find({post_category:'tripura', post_name:{$ne:skipOneTopNews}}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         res.json({
             success: true,
             data: {
@@ -33,7 +33,7 @@ exports.TripuraHomePage = async(req, res, next) => {
 
 exports.NationalHomePage = async(req, res, next) => {
     try{
-        const nationalnews = await allNews.find({post_category:'national'}).sort({news_id:-1}).limit('10').lean();
+        const nationalnews = await allNews.find({post_category:'national'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         res.json({
             success: true,
             data: {
@@ -51,7 +51,7 @@ exports.NationalHomePage = async(req, res, next) => {
 
 exports.InternationalHomePage = async(req, res, next) => {
     try{
-        const internationalnews = await allNews.find({post_category:'world'}).sort({news_id:-1}).limit('10').lean();
+        const internationalnews = await allNews.find({post_category:'world'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         res.json({
             success: true,
             data: {
@@ -69,7 +69,7 @@ exports.InternationalHomePage = async(req, res, next) => {
 
 exports.SportsHomePage = async(req, res, next) => {
     try{
-        const sportsnews = await allNews.find({post_category:'sports'}).sort({news_id:-1}).limit('10').lean();
+        const sportsnews = await allNews.find({post_category:'sports'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         res.json({
             success: true,
             data: {
@@ -88,7 +88,7 @@ exports.SportsHomePage = async(req, res, next) => {
 
 exports.FinanceHomePage = async(req, res, next) => {
     try{
-        const financenews = await allNews.find({post_category:'finance'}).sort({news_id:-1}).limit('10').lean();
+        const financenews = await allNews.find({post_category:'finance'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         res.json({
             success: true,
             data: {
@@ -107,7 +107,7 @@ exports.FinanceHomePage = async(req, res, next) => {
 
 exports.ShowbizHomePage = async(req, res, next) => {
     try{
-        const showbiznews = await allNews.find({post_category:'showbiz'}).sort({news_id:-1}).limit('10').lean();
+        const showbiznews = await allNews.find({post_category:'showbiz'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         
         // Check if data exists
         if (!showbiznews || showbiznews.length === 0) {
@@ -135,7 +135,7 @@ exports.ShowbizHomePage = async(req, res, next) => {
 
 exports.NortheastHomePage = async(req, res, next) => {
     try{
-        const northeastnews = await allNews.find({post_category:'northeast'}).sort({news_id:-1}).limit('10').lean();
+        const northeastnews = await allNews.find({post_category:'northeast'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         
         // Check if data exists
         if (!northeastnews || northeastnews.length === 0) {
@@ -163,7 +163,7 @@ exports.NortheastHomePage = async(req, res, next) => {
 
 exports.HealthHomePage = async(req, res, next) => {
     try{
-        const healthnews = await allNews.find({post_category:'health'}).sort({news_id:-1}).limit('10').lean();
+        const healthnews = await allNews.find({post_category:'health'}).select('-post_content').sort({news_id:-1}).limit('10').lean();
         
         // Check if data exists
         if (!healthnews || healthnews.length === 0) {
@@ -189,34 +189,6 @@ exports.HealthHomePage = async(req, res, next) => {
     }
 }
 
-
-exports.HealthHomePage = async(req, res, next) => {
-    try{
-        const healthnews = await allNews.find({post_category:'health'}).sort({news_id:-1}).limit('10').lean();
-        
-        // Check if data exists
-        if (!healthnews || healthnews.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "No health news found"
-            });
-        }
-        
-        res.json({
-            success: true,
-            data: {
-                healthnews
-            }
-        });
-    }
-    catch(error){
-        console.error('HealthHomePage API Error:', error);
-        res.status(500).json({
-            success: false,
-            message: error.message || "Error in Health API"
-        });
-    }
-}
 
 
 exports.ArticleHomePage = async(req, res, next) => {
@@ -301,8 +273,8 @@ exports.GalleryHomePage = async(req, res, next) => {
 
 exports.TopNewsPage = async(req, res, next) => {
     try{
-        const topnews = await allNews.find({ne_insight:'yes'}).sort({news_id:-1}).limit('1').lean();
-        const latestnews = await allNews.find({post_topic:{$ne:'headlines'},post_category:{$ne:'article'}}).sort({news_id:-1}).limit('4').lean();
+        const topnews = await allNews.find({ne_insight:'yes'}).select('-post_content').sort({news_id:-1}).limit('1').lean();
+        const latestnews = await allNews.find({post_topic:{$ne:'headlines'},post_category:{$ne:'article'}}).select('-post_content').sort({news_id:-1}).limit('4').lean();
 
         res.json({
             success: true,
@@ -342,6 +314,7 @@ exports.CategoryNewsPage = async(req, res, next) => {
 
         // Get news for the specified category with pagination
         const categoryNews = await allNews.find({post_category: category})
+            .select('-post_content -post_keyword')
             .sort({news_id: -1})
             .skip(skip)
             .limit(limit)
