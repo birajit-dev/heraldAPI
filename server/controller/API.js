@@ -800,7 +800,28 @@ exports.SitemapData = async (req, res) => {
 
 exports.breakingNewsAPI = async (req, res) => {
     try {
-        const bnews = await breakingNews.find().select('breaking_title').sort({brnews_id:-1}).limit('5').lean();
+        // Add caching headers for better performance
+        res.set({
+            'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
+            'ETag': `breaking-news-${Date.now()}`
+        });
+
+        // Optimized query with index hint and projection
+        const bnews = await breakingNews.find({}, { breaking_title: 1, _id: 1 })
+            .sort({ brnews_id: -1 })
+            .limit(5)
+            .lean()
+            .hint({ brnews_id: -1 }); // Use index hint for faster sorting
+        
+        // Early return if no data
+        if (!bnews || bnews.length === 0) {
+            return res.json({
+                success: true,
+                data: {
+                    breakingNews: []
+                }
+            });
+        }
         
         res.json({
             success: true,
