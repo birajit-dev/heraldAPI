@@ -19,6 +19,7 @@ const allnews = require('../model/allnews');
 const { title } = require('process');
 const breakingnews = require('../model/breakingnews');
 var moment = require('moment'); // require
+const axios = require('axios');
 
 
 
@@ -353,7 +354,7 @@ var moment = require('moment'); // require
 
     }
 
-*/
+
 
 exports.saveAllIbns = async (req, res) => {
     const categories = ['sports', 'news', 'finance', 'showbiz', 'life', 'world', 'health'];
@@ -407,3 +408,155 @@ exports.saveAllIbns = async (req, res) => {
     }
   };
       
+*/
+/*
+exports.saveAllIbns = async (req, res) => {
+  const categories = ['sports', 'news', 'finance', 'showbiz', 'life', 'world', 'health'];
+  const newDate = moment().format('lll');
+  const url = 'https://www.indiablooms.com/feeds/json/news';
+  const dashAllNews = await allNews.find().sort({ ibns_id: -1 }).lean();
+  const settings = { method: 'GET' };
+
+  try {
+    const response = await fetch(url, settings);
+    const json = await response.json();
+
+    for (const category of categories) {
+      const data = json.news[category];
+
+      if (data != null) {
+        for (const item of data) {
+          if (item.content.length > 10) {
+            const selected = dashAllNews.find((it) => it.post_name === item.title);
+
+            if (!selected) {
+              const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+              const postCategory = category === 'news' ? 'national' : category;
+              const ipage = new allNews({
+                post_name: item.title,
+                post_url: iurl,
+                post_summary: item.description,
+                post_content: item.content,
+                post_keyword: `agartala news, tripura news, northeast herald, ${postCategory} news`,
+                meta_description: item.description,
+                post_category: postCategory,
+                post_image: item.imageName,
+                meta_tags: 'Sport news',
+                post_topic: '',
+                post_editor: 'No',
+                ne_insight: 'No',
+                author: 'IBNS',
+                update_date: newDate,
+                ibns_id: item.id
+              });
+              await ipage.save();
+            }
+          }
+        }
+      }
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error in fetching and saving data:', error);
+    res.sendStatus(500);
+  }
+};
+*/
+exports.saveAllIbns = async (req, res) => {
+  try {
+    const categories = ['sports', 'news', 'finance', 'showbiz', 'life', 'world', 'health'];
+    const newDate = moment().format('lll');
+    const url = 'https://www.indiablooms.com/feeds/json/news';
+    const dashAllNews = await allNews.find().sort({ ibns_id: -1 }).lean();
+    const settings = { method: 'GET' };
+
+    let savedArticles = [];
+
+    const response = await fetch(url, settings);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const json = await response.json();
+
+    for (const category of categories) {
+      const data = json.news[category];
+
+      if (!data || !Array.isArray(data)) continue;
+
+      for (const item of data) {
+        if (!item?.content || item.content.length <= 10 || !item?.title) continue;
+
+        const exists = dashAllNews.find(it => it.post_name === item.title);
+        if (exists) continue;
+
+        const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        const postCategory = category === 'news' ? 'national' : category;
+
+        const ipage = new allNews({
+          post_name: item.title,
+          post_url: iurl,
+          post_summary: item.description || '',
+          post_content: item.content,
+          post_keyword: `agartala news, tripura news, northeast herald, ${postCategory} news`,
+          meta_description: item.description || '',
+          post_category: postCategory,
+          post_image: item.imageName || '',
+          meta_tags: 'Sport news',
+          post_topic: '',
+          post_editor: 'No',
+          ne_insight: 'No',
+          author: 'IBNS',
+          update_date: newDate,
+          ibns_id: item.id
+        });
+
+        try {
+          const savedArticle = await ipage.save();
+          if (!savedArticle) continue;
+
+          savedArticles.push(savedArticle);
+
+          const notification = {
+            title: `✨${item.title}`,
+            message: `📰 Click here to read more about ${item.title}`,
+            url: `https://neherald.com/${postCategory}/${iurl}`
+          };
+
+          try {
+            await axios.post('https://neherald.com/send', notification);
+            console.log('Notification sent successfully for:', item.title);
+          } catch (notifError) {
+            console.error('Failed to send notification for:', item.title, notifError);
+          }
+        } catch (saveError) {
+          console.error('Error saving article:', saveError);
+          continue;
+        }
+      }
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      message: savedArticles.length > 0 
+        ? `Successfully processed ${savedArticles.length} new articles`
+        : 'No new articles to process at this time'
+    });
+
+  } catch (error) {
+    console.error('Error in IBNS feed processing:', error);
+
+    // Cleanup on critical error
+    for (const article of savedArticles || []) {
+      try {
+        await allNews.findByIdAndDelete(article._id);
+      } catch (deleteError) {
+        console.error('Error deleting article after failure:', deleteError);
+      }
+    }
+
+    return res.status(500).json({
+      status: 'error', 
+      message: 'Unable to process IBNS feed at this time'
+    });
+  }
+};

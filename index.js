@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const cors = require('cors');
 //var sassMiddleware = require('node-sass-middleware')
 var path = require('path');
 const app = express();
@@ -10,6 +11,8 @@ var bodyParser = require('body-parser');
 
 const oneDay = 1000 * 60 * 60 * 24;
 
+// Enable CORS for all routes
+app.use(cors());
 
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -36,6 +39,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Security and Performance Headers
+app.use((req, res, next) => {
+    // Security headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    // Performance headers
+    if (req.url.match(/\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 year for static assets
+    } else if (req.url.includes('/xml/') || req.url.includes('robots.txt') || req.url.includes('sitemap')) {
+        res.setHeader('Cache-Control', 'public, max-age=3600'); // 1 hour for sitemaps
+    } else {
+        res.setHeader('Cache-Control', 'public, max-age=300'); // 5 minutes for pages
+    }
+    
+    next();
+});
 //console.log( __dirname + '/public/scss');
 // app.use(
 //   sassMiddleware ({
@@ -52,7 +75,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('*', (req, res) => {
-    res.status(404).render('404');
+    res.status(404).render('404', {
+        pageTitle: 'Page Not Found - Northeast Herald',
+        pageDescription: 'The page you are looking for could not be found.',
+        pageKeyword: 'northeast herald, tripura news, page not found'
+    });
   });
 
 

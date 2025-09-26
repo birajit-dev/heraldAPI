@@ -1,0 +1,402 @@
+// push-notifications.js - A standalone notification system with iOS Add to Home Screen
+(function() {
+    // Configuration
+    const config = {
+      publicVapidKey: 'BBHlvgcx6ZNqTNpERsmwwDhaRLxuH8XV9xB446stnPW7XevoOIBeQHpp-8QOp5W9QoOkrgIB3SEaVpN5QtsBisg',
+      subscribeEndpoint: '/subscribe',
+      promptDelay: 1000
+    };
+  
+    // DOM Elements
+    let pushPrompt = null;
+    let toast = null;
+    let iosPrompt = null;
+    let androidPrompt = null;
+
+    // Device detection
+    function detectDevice() {
+      const ua = navigator.userAgent;
+      // Check for Android first
+      if (/android/i.test(ua)) {
+        return 'android';
+      } else if (/iPad|iPhone|iPod|Safari/.test(ua) && !window.MSStream) {
+        // Match iOS devices and Safari
+        return 'ios';
+      } else {
+        return 'desktop';
+      }
+    }
+  
+    // Create and inject CSS
+    function injectStyles() {
+      const styleEl = document.createElement('style');
+      styleEl.innerHTML = `
+        /* Enhanced Notification Popup */
+        #pushPrompt, #iosPrompt, #androidPrompt {
+          position: fixed;
+          top: -300px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #fff;
+          color: #333;
+          padding: 24px 26px;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+          z-index: 9999;
+          opacity: 0;
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          width: 90%;
+          max-width: 380px;
+          text-align: center;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+  
+        #pushPrompt.show, #iosPrompt.show, #androidPrompt.show {
+          top: 40px;
+          opacity: 1;
+        }
+        
+        .notification-icon {
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #4776E6, #8E54E9);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 auto 16px;
+        }
+  
+        #pushPrompt .title, #iosPrompt .title, #androidPrompt .title {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+  
+        #pushPrompt .message, #iosPrompt .message, #androidPrompt .message {
+          font-size: 15px;
+          margin-bottom: 22px;
+          line-height: 1.5;
+          color: #666;
+        }
+  
+        #pushPrompt .actions, #iosPrompt .actions, #androidPrompt .actions {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+        }
+  
+        #pushPrompt .actions button, #iosPrompt .actions button, #androidPrompt .actions button {
+          padding: 12px 20px;
+          border: none;
+          border-radius: 8px;
+          font-weight: 500;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.3s;
+          flex: 1;
+        }
+  
+        .btn-allow {
+          background: linear-gradient(135deg, #4776E6, #8E54E9);
+          color: white;
+          box-shadow: 0 4px 12px rgba(71, 118, 230, 0.2);
+        }
+  
+        .btn-allow:hover {
+          box-shadow: 0 6px 15px rgba(71, 118, 230, 0.3);
+          transform: translateY(-2px);
+        }
+  
+        .btn-decline {
+          background-color: #f5f7fa;
+          color: #666;
+          border: 1px solid #e4e8ef !important;
+        }
+  
+        .btn-decline:hover {
+          background-color: #edf0f5;
+        }
+  
+        /* Toast */
+        #pushToast {
+          visibility: hidden;
+          min-width: 250px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          border-radius: 8px;
+          padding: 14px;
+          position: fixed;
+          top: 20px;
+          left: 0;
+          right: 0;
+          margin: auto;
+          z-index: 10000;
+          font-size: 15px;
+          opacity: 0;
+          transition: opacity 0.4s ease, top 0.4s ease;
+        }
+  
+        #pushToast.show {
+          visibility: visible;
+          opacity: 1;
+          top: 70px;
+        }
+
+        /* iOS Add to Home Screen Instructions */
+        .ios-instructions {
+          margin-top: 15px;
+          padding: 15px;
+          background: #f8f9fa;
+          border-radius: 8px;
+        }
+
+        .ios-instructions img {
+          width: 100%;
+          max-width: 200px;
+          margin: 10px 0;
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
+  
+    // Create and inject HTML
+    function injectHTML() {
+      // Create push prompt for desktop
+      pushPrompt = document.createElement('div');
+      pushPrompt.id = 'pushPrompt';
+      pushPrompt.innerHTML = `
+        <div class="notification-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+        </div>
+        <div class="title">Stay Updated!</div>
+        <div class="message">Enable notifications to receive the latest news, updates and alerts directly on your device.</div>
+        <div class="actions">
+          <button class="btn-allow" id="allowPushBtn">Enable</button>
+          <button class="btn-decline" id="declinePushBtn">Maybe Later</button>
+        </div>
+      `;
+      document.body.appendChild(pushPrompt);
+
+      // Create Android prompt
+      androidPrompt = document.createElement('div');
+      androidPrompt.id = 'androidPrompt';
+      androidPrompt.innerHTML = `
+        <div class="notification-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+        </div>
+        <div class="title">Enable Notifications</div>
+        <div class="message">Get instant updates and alerts on your Android device!</div>
+        <div class="actions">
+          <button class="btn-allow" id="allowAndroidPushBtn">Enable</button>
+          <button class="btn-decline" id="declineAndroidPushBtn">Not Now</button>
+        </div>
+      `;
+      document.body.appendChild(androidPrompt);
+
+      // Create iOS Add to Home Screen prompt
+      iosPrompt = document.createElement('div');
+      iosPrompt.id = 'iosPrompt';
+      iosPrompt.innerHTML = `
+        <div class="notification-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+        </div>
+        <div class="title">Stay Updated!</div>
+        <div class="message">Never miss important updates and breaking news alerts!</div>
+        <div class="ios-instructions">
+          <p>To get instant notifications:</p>
+          <p>1. Tap the share button</p>
+          <p>2. Select "Add to Home Screen"</p>
+          <p>3. Stay informed with latest updates!</p>
+        </div>
+        <div class="actions">
+          <button class="btn-decline" id="closeIosPromptBtn">I'll do it now!</button>
+        </div>
+      `;
+      document.body.appendChild(iosPrompt);
+  
+      // Create toast
+      toast = document.createElement('div');
+      toast.id = 'pushToast';
+      document.body.appendChild(toast);
+    }
+  
+    // Show toast message
+    function showToast(message) {
+      toast.textContent = message;
+      toast.className = "show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
+    }
+
+    // Check if app is installed (using PWA detection)
+    function isAppInstalled() {
+      return window.matchMedia('(display-mode: standalone)').matches || 
+             window.navigator.standalone === true;
+    }
+
+    // Show appropriate prompt based on device
+    function showPrompt() {
+      const device = detectDevice();
+      if (device === 'ios' && !isAppInstalled()) {
+        iosPrompt.classList.add('show');
+      } else if (device === 'android') {
+        androidPrompt.classList.add('show');
+      } else if (device === 'desktop') {
+        pushPrompt.classList.add('show');
+      }
+    }
+  
+    // Hide all prompts
+    function hidePrompt() {
+      pushPrompt.classList.remove('show');
+      iosPrompt.classList.remove('show');
+      androidPrompt.classList.remove('show');
+    }
+
+    // Convert base64 string to Uint8Array
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const rawData = atob(base64);
+      return new Uint8Array([...rawData].map((char) => char.charCodeAt(0)));
+    }
+  
+    // Subscribe user to push notifications
+    async function subscribeUser() {
+      if ('serviceWorker' in navigator) {
+        try {
+          const reg = await navigator.serviceWorker.register('/sw.js');
+  
+          const existingSubscription = await reg.pushManager.getSubscription();
+          if (existingSubscription) {
+            showToast('You are already subscribed!');
+            return;
+          }
+  
+          const subscription = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(config.publicVapidKey)
+          });
+  
+          await fetch(config.subscribeEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subscription })
+          });
+  
+          showToast('Subscribed to push notifications!');
+        } catch (error) {
+          console.error('Error subscribing to push notifications:', error);
+          showToast('Failed to subscribe. Please try again later.');
+        }
+      } else {
+        showToast('Service Workers not supported by your browser.');
+      }
+    }
+  
+    // Initialize notification system
+    function init(options = {}) {
+      // Merge options with defaults
+      Object.assign(config, options);
+      
+      // Inject styles and HTML
+      injectStyles();
+      injectHTML();
+      
+      // Add event listeners for desktop
+      document.getElementById('allowPushBtn')?.addEventListener('click', async () => {
+        hidePrompt();
+        localStorage.setItem('pushPromptSeen', 'true');
+        await subscribeUser();
+      });
+  
+      document.getElementById('declinePushBtn')?.addEventListener('click', () => {
+        hidePrompt();
+        localStorage.setItem('pushPromptSeen', 'true');
+        showToast('You can subscribe later from settings.');
+      });
+
+      // Add event listeners for Android
+      document.getElementById('allowAndroidPushBtn')?.addEventListener('click', async () => {
+        hidePrompt();
+        localStorage.setItem('androidPromptSeen', 'true');
+        await subscribeUser();
+      });
+
+      document.getElementById('declineAndroidPushBtn')?.addEventListener('click', () => {
+        hidePrompt();
+        localStorage.setItem('androidPromptSeen', 'true');
+        showToast('You can enable notifications later from settings.');
+      });
+
+      // Add event listeners for iOS
+      document.getElementById('closeIosPromptBtn')?.addEventListener('click', () => {
+        hidePrompt();
+        localStorage.setItem('iosPromptSeen', 'true');
+      });
+      
+      // Show appropriate prompt after delay
+      const device = detectDevice();
+      let promptSeen;
+      
+      if (device === 'ios') {
+        promptSeen = localStorage.getItem('iosPromptSeen');
+      } else if (device === 'android') {
+        promptSeen = localStorage.getItem('androidPromptSeen');
+      } else {
+        promptSeen = localStorage.getItem('pushPromptSeen');
+      }
+        
+      if (!promptSeen) {
+        setTimeout(showPrompt, config.promptDelay);
+      }
+    }
+  
+    // Set up listener for messages from service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        console.log('Received message from service worker:', event.data);
+        
+        if (event.data.type === 'NOTIFICATION_CLICKED') {
+          console.log('Notification was clicked, opening URL:', event.data.url);
+          window.location.href = event.data.url;
+        }
+      });
+    }
+  
+    // Function to check for pending notification clicks
+    function checkForPendingNotificationClicks() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => {
+          if (registration.active) {
+            registration.active.postMessage({
+              type: 'CHECK_PENDING_CLICKS'
+            });
+          }
+        }).catch(err => {
+          console.error('Error checking for pending clicks:', err);
+        });
+      }
+    }
+  
+    // Check for pending clicks on page load
+    window.addEventListener('load', checkForPendingNotificationClicks);
+  
+    // Expose public API
+    window.PushNotifications = {
+      init: init,
+      subscribe: subscribeUser,
+      showPrompt: showPrompt,
+      hidePrompt: hidePrompt,
+      showToast: showToast
+    };
+  })();

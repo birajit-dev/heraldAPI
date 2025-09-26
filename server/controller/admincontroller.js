@@ -23,6 +23,18 @@ const breakingnews = require('../model/breakingnews');
 const aws = require('aws-sdk');
 const multerS3 = require('multer-s3');
 var moment = require('moment'); // require
+const webpush = require('web-push');
+const Subscription = require('../model/notifications');
+const PageViewModel = require('../model/pageview');
+
+require('dotenv').config(); // To manage API keys securely
+const axios = require('axios');
+
+webpush.setVapidDetails(
+  'mailto:birajitdvma@gmail.com',
+  process.env.VAPID_PUBLIC_KEY,
+  process.env.VAPID_PRIVATE_KEY
+);
 
 const newDate = moment().format('lll');
 
@@ -201,9 +213,75 @@ const newDate = moment().format('lll');
     //     });    
     // }
 
+exports.postNews = async(req, res) => {
+      const ranDom = getRandomInt(999999);
+      
+      const storage = multer.diskStorage({
+          destination: function (req, file, cb) {
+              cb(null, 'public/uploads/news'); // Define the destination folder within the public directory
+          },
+          filename: function (req, file, cb) {
+              const ext = file.originalname.split('.').pop();
+              const fileName = ranDom + '-' + Date.now() + '.' + ext; // Generate unique file name
+              cb(null, fileName);
+          }
+      });
+  
+      const upload = multer({ storage: storage }).single('myFile', 1);
+  
+      upload(req, res, async function(err) { // Make callback async
+          if (err) {
+              res.send('Something Went Wrong');
+          } else {
+              try {
+                  const fileName = req.file.filename; // Use the generated file name
+                  const urlp = "/uploads/news/"; // Define your base URL where files are stored
+                  const filePath = urlp + fileName;
+                  const nDate = moment().format('lll');
+                  const { name, summary, mytextarea, keyword, description, category, tags, topics, editor, insight, author } = req.body;
+                  const purl = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                  
+                  let upallNews = new allNews({
+                      post_name: name,
+                      post_url: purl,
+                      post_summary: summary,
+                      post_content: mytextarea,
+                      post_keyword: keyword,
+                      meta_description: description,
+                      post_category: category,
+                      post_image: filePath,
+                      meta_tags: tags,
+                      post_topic: topics,
+                      post_editor: editor,
+                      ne_insight: insight,
+                      author: author,
+                      update_date: nDate
+                  });
 
+                  await upallNews.save();
 
-    exports.postNews = async(req, res) => {
+                  try {
+                      await axios.post('https://neherald.com/send', {
+                          title: `📰 ${name}`,
+                          message: summary || 'A new post just dropped!', 
+                          url: `https://neherald.com/${category}/${purl}`
+                      });
+                  } catch (error) {
+                      console.error('Error sending notification:', error);
+                      // Continue execution even if notification fails
+                  }
+
+                  res.redirect('/admin/user/dashboard');
+
+              } catch (error) {
+                  console.error('Error saving news:', error);
+                  res.status(500).send('Error saving news');
+              }
+          }
+      });
+  }
+
+    exports.postNewsv2 = async(req, res) => {
         const ranDom = getRandomInt(999999);
         
         const storage = multer.diskStorage({
@@ -506,24 +584,101 @@ const newDate = moment().format('lll');
     }
 
 
+// Save subscription
+exports.saveSubscription = async (req, res) => {
+  try {
+    const { subscription } = req.body;
+    await Subscription.create({ subscription });
+    res.status(201).json({ message: 'Subscription saved' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to save subscription' });
+  }
+};
 
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-
-
-
+// Send push notification
+exports.sendNotification = async (req, res) => {
+  const { title, message, url } = req.body;
   
+  // Validate URL
+  let targetUrl = url;
+  if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+    targetUrl = 'https://' + targetUrl;
+  }
 
+  // Create a well-formed payload
+  const payload = JSON.stringify({
+    title: title || 'New Notification',
+    body: message || 'You have a new notification',
+    icon: 'https://neherald.com/images/newlogo.png',
+    url: targetUrl
+  });
 
+  console.log('Sending push with payload:', payload);
 
+  try {
+    const subs = await Subscription.find();
+    console.log(`Found ${subs.length} subscriptions`);
+    
+    let successCount = 0;
+    let failCount = 0;
 
+    for (const sub of subs) {
+      try {
+        await webpush.sendNotification(sub.subscription, payload);
+        console.log('Successfully sent to subscriber');
+        successCount++;
+      } catch (err) {
+        console.error('Failed to send to subscriber:', err.message);
+        failCount++;
+        
+        // Remove invalid subscriptions
+        if (err.statusCode === 404 || err.statusCode === 410) {
+          console.log('Removing invalid subscription');
+          await Subscription.findByIdAndDelete(sub._id);
+        }
+      }
+    }
+
+    res.status(200).json({ 
+      message: `Notifications sent. Success: ${successCount}, Failed: ${failCount}` 
+    });
+  } catch (err) {
+    console.error('Error in push notification process:', err);
+    res.status(500).json({ error: 'Failed to process notifications' });
+  }
+};
+exports.getPageViews = async (req, res) => {
+  try {
+    const {
+      page,
+      browser, 
+      platform,
+      modelCode,
+      screenWidth,
+      screenHeight,
+      userAgent
+    } = req.body;
+
+    const pageView = await PageViewModel.create({
+      page,
+      browser,
+      platform, 
+      modelCode,
+      screenWidth,
+      screenHeight,
+      userAgent
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: pageView
+    });
+
+  } catch (error) {
+    console.error('Error recording page view:', error);
+    res.status(500).json({
+      status: 'error', 
+      message: 'Failed to record page view'
+    });
+  }
+};

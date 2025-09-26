@@ -9,14 +9,15 @@ const sessions = require('express-session');
 const ibns = require('../model/ibns');
 const RssFeed = require('../controller/rsscontroller');
 const SitemapGenerator = require('../controller/sitemapController');
+const API = require('../controller/API');
 
-// CLIENT SIDE ROUTE//
-router.get('/', allController.homePage); // HOMEPAGE
-router.get('/:cate/:id', allController.newsPage); // NEWS PAGE
-router.get('/:cat', allController.categoryPage); // CATEGORY PAGE
-router.get('/en/pages/:pageurl', allController.pagesection);
-router.get('/photo/neh/gallery/:gurl', galleryController.pageGallery);
-router.get('/topnews/headlines/tripura', allController.topNewsPage);
+// CLIENT SIDE ROUTE - ALL REDIRECTED TO 404 //
+router.get('/', allController.Error); // HOMEPAGE -> 404
+router.get('/:cate/:id', allController.Error); // NEWS PAGE -> 404
+router.get('/:cat', allController.Error); // CATEGORY PAGE -> 404
+router.get('/en/pages/:pageurl', allController.Error); // PAGES -> 404
+router.get('/photo/neh/gallery/:gurl', allController.Error); // GALLERY -> 404
+router.get('/topnews/headlines/tripura', allController.Error); // TOP NEWS -> 404
 //router.get('/automation/ibns/all', adminController.ibns);
 //router.get('/a/a/a/test', adminController.testi);
 
@@ -55,9 +56,9 @@ router.get('/admin/user/deletebreaking/:id', adminController.deleteBreaking);
 
 
 
-//Generator
-router.get('/automate/generate/ibns', ibnsAutomation.saveAllIbns);
-router.get('/automate/generate/rss', RssFeed.generateRSS);
+//Generator - ALL REDIRECTED TO 404 //
+router.get('/automate/generate/ibns', allController.Error);
+router.get('/automate/generate/rss', allController.Error);
 
 
 
@@ -68,24 +69,62 @@ router.get('/automate/generate/rss', RssFeed.generateRSS);
 
 //SEO 
 
-//API
-router.get('/api/v1/search', allController.searchNews);
-router.get('/api/v1/album', allController.photoAlbum);
-router.get('/api/v1/video', adminController.addVideos);
+//API - ALL REDIRECTED TO 404 //
+router.get('/api/v1/search', allController.Error);
+router.get('/api/v1/album', allController.Error);
+router.get('/api/v1/video', allController.Error);
+router.get('/api/v1/load-more', allController.Error);
+router.get('/api/v1/trending', allController.Error);
+router.get('/api/v1/related/:category/:id', allController.Error);
 
-router.get('/api/v1/allnews', allController.homeAPI);
-
-
-
-
-
+router.get('/api/v1/allnews', allController.Error);
 
 
 
+
+
+router.post('/api/v1/controller/pageview', adminController.getPageViews);
+
+
+router.post('/subscribe', adminController.saveSubscription);
+router.post('/send', adminController.sendNotification);
+router.get('/push-not/notification/direct', allController.pushPage);
 
 
 //ERROR//
-router.get('/error/404', allController.Error);
+router.get('/error/notfound/404', allController.Error);
+
+
+
+//API for NEXT JS Website
+router.get('/api/next/v1/breaking', API.breakingNewsAPI);
+router.get('/api/next/v1/tripura', API.TripuraHomePage);
+router.get('/api/next/v1/national', API.NationalHomePage);
+router.get('/api/next/v1/international', API.InternationalHomePage);
+router.get('/api/next/v1/sports', API.SportsHomePage);
+router.get('/api/next/v1/finance', API.FinanceHomePage);
+router.get('/api/next/v1/showbiz', API.ShowbizHomePage);
+router.get('/api/next/v1/northeast', API.NortheastHomePage);
+router.get('/api/next/v1/article', API.ArticleHomePage);
+router.get('/api/next/v1/health', API.HealthHomePage);
+router.get('/api/next/v1/youtube', API.YoutubeHomePage);
+router.get('/api/next/v1/gallery', API.GalleryHomePage);
+router.get('/api/next/v1/topnews', API.TopNewsPage);
+router.get('/api/next/v1/category', API.CategoryNewsPage);
+router.get('/api/next/v1/single', API.SingleNewsPage);
+router.get('/api/next/v1/topnewstripura', API.TopNewsPageTripura);
+router.get('/api/next/v1/trending', API.TrendingNewsPage);
+router.get('/api/next/v1/googlenews', API.GoogleNewsXML);
+router.get('/api/next/v1/rss', API.RSSFeed);
+router.get('/api/next/v1/newsitemap', API.NewsSitemap);
+router.get('/api/next/v1/sitemap', API.SitemapData);
+router.get('/api/next/v1/photoalbum', API.PhotoAlbumPage);
+router.get('/api/next/v1/gallery/single', API.singleGalleryAPI);
+router.get('/api/next/v1/epaper', API.EpaperHomePage);
+router.get('/api/next/v1/search', API.SearchNewsAPI);
+
+
+
 
 
 

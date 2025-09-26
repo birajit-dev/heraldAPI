@@ -25,13 +25,24 @@ exports.generateRSS = async (req, res) => {
       });
 
       articles.forEach((article) => {
+        // Convert date to proper Date object
+        let pubDate;
+        try {
+          pubDate = new Date(article.update_date);
+          if (isNaN(pubDate.getTime())) {
+            pubDate = new Date(); // Fallback to current date
+          }
+        } catch (error) {
+          pubDate = new Date(); // Fallback to current date
+        }
+
         feed.item({
           title: article.post_name,
           description: `<div><img src="${article.post_image}" style="width: 100%;" /><div>${article.post_name}</div></div>`,
           url: `https://neherald.com/${article.post_category}/${article.post_url}`,
           guid: article._id.toString(),
-          author: 'Northeast Herald',
-          date: article.update_date,
+          author: article.author || 'Northeast Herald',
+          date: pubDate,
         });
       });
 
