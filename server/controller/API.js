@@ -300,6 +300,29 @@ exports.GalleryHomePage = async(req, res, next) => {
     }
 }
 
+exports.DurgaPujaHomePage = async(req, res, next) => {
+    try{
+        const gallery = await allGallery.find({
+            gallery_keyword: "Durga Puja 2025",
+            gallery_keyword: { $not: /other/i }
+        }).sort({gallery_id:-1}).limit(5).lean();
+
+        res.json({
+            success: true,
+            data: {
+                gallery
+            }
+        });
+    }
+    catch(error){
+        console.error('DurgaPujaHomePage API Error:', error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Error in Durga Puja Homepage"
+        });
+    }
+}
+
 
 exports.TopNewsPage = async(req, res, next) => {
     try{

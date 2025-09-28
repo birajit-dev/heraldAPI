@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="https://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://neherald.com/world/trump-announces-up-to-100-tariff-on-pharma-imports-from-oct-1-indian-firms-likely-hit</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Trump announces up to 100% tariff on pharma imports from Oct. 1; Indian firms likely hit</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, world news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/world/unga-indonesian-president-prabowo-subianto-stuns-muslim-world-says-guaranteeing-israels-security-is-key-to-peace</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>UNGA: Indonesian President Prabowo Subianto stuns Muslim world, says guaranteeing Israel's security is key to peace</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, world news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/life/durga-puja-bengals-festival-of-faith-art-and-communion</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Durga Puja: Bengal’s festival of faith, art and communion</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, life news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/showbiz/sultana-in-raktabeej-2-has-rough-sketches-of-sheikh-hasina-bandit-queen-actress-seema-biswas-on-playing-political-figures</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Sultana in Raktabeej 2 has rough sketches of Sheikh Hasina: 'Bandit Queen' actress Seema Biswas on playing political figures</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, showbiz news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/national/calcutta-hc-grants-bail-to-ex-bengal-minister-partha-chatterjee-in-teacher-recruitment-scam-cases</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Calcutta HC grants bail to ex-Bengal minister Partha Chatterjee in teacher recruitment scam cases</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/national/pm-modi-transfers-rs-10000-to-each-of-75-lakh-women-under-new-scheme-in-poll-bound-bihar</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>PM Modi transfers Rs. 10,000 to each of 75 lakh women under new scheme in poll-bound Bihar</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/national/amit-shah-inaugurates-kolkata-puja-pandal-themed-after-op-sindoor-gives-call-to-make-sonar-bangla</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Amit Shah inaugurates Kolkata puja pandal themed after Op. Sindoor, gives call to make 'Sonar Bangla'</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://neherald.com/sports/pakistan-manage-to-beat-bangladesh-to-face-india-in-asia-cup-final</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Northeast Herald</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-09-26T09:44:00.000Z</news:publication_date>
+      <news:title>Pakistan manage to beat Bangladesh to face India in Asia Cup final</news:title>
+      <news:keywords>agartala news, tripura news, northeast herald, sports news</news:keywords>
+    </news:news>
+  </url>
+  <url>
     <loc>https://neherald.com/national/womens-empowerment-narendra-modi-congratulates-nepali-pm-sushila-karki-from-imphal</loc>
     <news:news>
       <news:publication>
@@ -706,78 +802,6 @@
       <news:publication_date>2025-09-11T09:11:00.000Z</news:publication_date>
       <news:title>Tripura govt sets up SIT to probe illegal withdrawal of Rs 16.38 crore from civic body's bank account</news:title>
       <news:keywords>Tripura govt sets up SIT to probe illegal withdrawal of Rs 16.38 crore from civic body's bank account, agartala news, tripura news, northeast herald</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/national/srk-deepika-padukone-get-relief-as-rajasthan-hc-stays-probe-in-cheating-case-over-faulty-hyundai-car</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T08:50:00.000Z</news:publication_date>
-      <news:title>SRK, Deepika Padukone get relief as Rajasthan HC stays probe in cheating case over 'faulty Hyundai car'</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/showbiz/shah-rukh-khans-meer-foundation-delivers-relief-to-1500-flood-hit-families-in-punjab</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T08:11:00.000Z</news:publication_date>
-      <news:title>Shah Rukh Khan's Meer Foundation delivers relief to 1,500 flood-hit families in Punjab</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, showbiz news</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/national/devendra-fadnavis-slams-siddaramaiah-govt-over-plan-to-rename-shivajinagar-metro-station-after-st-mary</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T07:51:00.000Z</news:publication_date>
-      <news:title>Devendra Fadnavis slams Siddaramaiah govt over plan to rename Shivajinagar Metro Station after St. Mary</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/national/adb-signs-1264-million-loan-agreement-to-promote-sustainable-tourism-in-uttarakhand</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T07:31:00.000Z</news:publication_date>
-      <news:title>ADB signs $126.4 million loan agreement to promote sustainable tourism in Uttarakhand</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/national/rahul-gandhi-not-following-security-protocol-alleges-crpf</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T07:30:00.000Z</news:publication_date>
-      <news:title>Rahul Gandhi not following security protocol, alleges CRPF</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://neherald.com/national/delhi-court-rejects-plea-seeking-action-against-sonia-gandhi-over-alleged-forgery-in-including-name-in-electoral-roll</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Northeast Herald</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2025-09-11T07:11:00.000Z</news:publication_date>
-      <news:title>Delhi court rejects plea seeking action against Sonia Gandhi over alleged forgery in including name in electoral roll</news:title>
-      <news:keywords>agartala news, tripura news, northeast herald, national news</news:keywords>
     </news:news>
   </url>
 </urlset>

@@ -468,10 +468,7 @@ exports.saveAllIbns = async (req, res) => {
     const newDate = moment().format('lll');
     const url = 'https://www.indiablooms.com/feeds/json/news';
     
-    // Get existing articles with both ibns_id and post_name for better duplicate checking
-    const dashAllNews = await allNews.find({}, { ibns_id: 1, post_name: 1, post_url: 1 }).sort({ ibns_id: -1 }).lean();
     const settings = { method: 'GET' };
-
     let savedArticles = [];
 
     const response = await fetch(url, settings);
@@ -479,6 +476,12 @@ exports.saveAllIbns = async (req, res) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const json = await response.json();
+
+    // Get all existing IBNS IDs in one query to avoid multiple database calls
+    const existingIbnsIds = await allNews.find({ ibns_id: { $exists: true, $ne: null } })
+      .select('ibns_id')
+      .lean();
+    const existingIbnsIdSet = new Set(existingIbnsIds.map(item => item.ibns_id));
 
     for (const category of categories) {
       const data = json.news[category];
@@ -488,17 +491,26 @@ exports.saveAllIbns = async (req, res) => {
       for (const item of data) {
         if (!item?.content || item.content.length <= 10 || !item?.title || !item?.id) continue;
 
-        // Check for duplicates using multiple criteria
-        const existsByIbnsId = dashAllNews.find(it => it.ibns_id === item.id);
-        const existsByTitle = dashAllNews.find(it => it.post_name === item.title);
-        
-        // Generate URL to check for URL duplicates
-        const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-        const existsByUrl = dashAllNews.find(it => it.post_url === iurl);
+        // First check: Skip if IBNS ID already exists (most efficient check)
+        if (existingIbnsIdSet.has(item.id)) {
+          console.log(`Skipping duplicate by IBNS ID: ${item.title} (ID: ${item.id})`);
+          continue;
+        }
 
-        // Skip if any duplicate found
-        if (existsByIbnsId || existsByTitle || existsByUrl) {
-          console.log(`Skipping duplicate article: ${item.title} (ID: ${item.id})`);
+        // Generate URL
+        const iurl = item.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+        // Second check: Skip if title already exists
+        const existsByTitle = await allNews.findOne({ post_name: item.title }).lean();
+        if (existsByTitle) {
+          console.log(`Skipping duplicate by title: ${item.title}`);
+          continue;
+        }
+
+        // Third check: Skip if URL already exists
+        const existsByUrl = await allNews.findOne({ post_url: iurl }).lean();
+        if (existsByUrl) {
+          console.log(`Skipping duplicate by URL: ${iurl}`);
           continue;
         }
 
@@ -526,14 +538,8 @@ exports.saveAllIbns = async (req, res) => {
           const savedArticle = await ipage.save();
           if (!savedArticle) continue;
 
-          // Add to our local tracking to prevent duplicates within this batch
-          dashAllNews.push({
-            _id: savedArticle._id,
-            ibns_id: item.id,
-            post_name: item.title,
-            post_url: iurl
-          });
-
+          // Add to our local set to prevent duplicates within this batch
+          existingIbnsIdSet.add(item.id);
           savedArticles.push(savedArticle);
 
           const notification = {

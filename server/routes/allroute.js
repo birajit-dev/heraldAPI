@@ -109,6 +109,7 @@ router.get('/api/next/v1/article', API.ArticleHomePage);
 router.get('/api/next/v1/health', API.HealthHomePage);
 router.get('/api/next/v1/youtube', API.YoutubeHomePage);
 router.get('/api/next/v1/gallery', API.GalleryHomePage);
+router.get('/api/next/v1/durga-puja', API.DurgaPujaHomePage);
 router.get('/api/next/v1/topnews', API.TopNewsPage);
 router.get('/api/next/v1/category', API.CategoryNewsPage);
 router.get('/api/next/v1/single', API.SingleNewsPage);
