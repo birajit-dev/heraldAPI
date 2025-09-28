@@ -300,25 +300,31 @@ exports.GalleryHomePage = async(req, res, next) => {
     }
 }
 
-exports.DurgaPujaHomePage = async(req, res, next) => {
-    try{
+exports.DurgaPujaHomePage = async (req, res, next) => {
+    try {
+        // Find galleries with specific keyword, sorted by gallery_id descending, limit to 5
         const gallery = await allGallery.find({
-            gallery_keyword: "Durga Puja 2025",
-            gallery_keyword: { $not: /other/i }
-        }).sort({gallery_id:-1}).limit(5).lean();
+            gallery_keyword: "Durga Puja 2025"
+        })
+        .sort({ gallery_id: -1 })
+        .limit(5)
+        .lean();
 
+        // Return success response with gallery data
         res.json({
             success: true,
             data: {
-                gallery
+                gallery,
             }
         });
-    }
-    catch(error){
+    } catch (error) {
         console.error('DurgaPujaHomePage API Error:', error);
         res.status(500).json({
             success: false,
-            message: error.message || "Error in Durga Puja Homepage"
+            message: error.message || "Error in Durga Puja Homepage",
+            data: {
+                gallery: []
+            }
         });
     }
 }
