@@ -282,7 +282,12 @@ exports.YoutubeHomePage = async(req, res, next) => {
 
 exports.GalleryHomePage = async(req, res, next) => {
     try{
-        const gallery = await allGallery.find({gallery_keyword: { $ne: 'Puja' }}).sort({gallery_id:-1}).limit(5).lean();
+        const gallery = await allGallery.find({
+            gallery_keyword: { 
+                $ne: 'Puja',
+                $ne: 'Durga Puja 2025'
+            }
+        }).sort({gallery_id:-1}).limit(5).lean();
 
         res.json({
             success: true,
